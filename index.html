@@ -543,19 +543,261 @@
                 left: 0%;
             }
         }
+
+        /* --- Cosmic Valentine Styles --- */
+        .star-trigger {
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: opacity 0.3s;
+            display: inline-block;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .star-trigger:hover {
+            opacity: 1;
+            text-shadow: 0 0 10px gold;
+        }
+
+        .cosmic-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            z-index: 3000;
+            color: white;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Twinkling Stars Background within Modal */
+        .stars,
+        .twinkling {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .stars {
+            background: #000 url('http://www.script-tutorials.com/demos/360/images/stars.png') repeat top center;
+            z-index: 0;
+        }
+
+        .twinkling {
+            background: transparent url('http://www.script-tutorials.com/demos/360/images/twinkling.png') repeat top center;
+            z-index: 1;
+            animation: move-twink-back 200s linear infinite;
+        }
+
+        @keyframes move-twink-back {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: -10000px 5000px;
+            }
+        }
+
+        .cosmic-content {
+            z-index: 2;
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            transition: all 0.5s ease;
+        }
+
+        .zodiac-selector {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .z-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .z-group label {
+            font-family: var(--heading-font);
+            margin-bottom: 5px;
+            color: #dcd0ff;
+        }
+
+        .z-select {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            font-family: var(--body-font);
+        }
+
+        .check-stars-btn {
+            background: linear-gradient(45deg, #FF5F6D, #FFC371);
+            border: none;
+            padding: 12px 30px;
+            color: white;
+            font-family: var(--heading-font);
+            font-size: 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(255, 95, 109, 0.4);
+            transition: transform 0.3s;
+        }
+
+        .check-stars-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Proposal Section */
+        .proposal-hidden {
+            display: none;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .big-question {
+            font-family: 'Allura', cursive;
+            font-size: 4rem;
+            margin: 20px 0;
+            color: #fff;
+            text-shadow: 0 0 10px #ff6b6b;
+        }
+
+        .response-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            position: relative;
+            height: 60px;
+            /* Reserve space */
+        }
+
+        .btn-yes,
+        .btn-no {
+            padding: 10px 40px;
+            font-family: var(--heading-font);
+            font-size: 1.2rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-yes {
+            background: #9DC183;
+            color: white;
+            box-shadow: 0 0 15px #9DC183;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            background: #81a866;
+        }
+
+        .btn-no {
+            background: #ff6b6b;
+            color: white;
+            position: absolute;
+            /* Important for running away */
+            transition: top 0.2s, left 0.2s;
+            /* Quick movement */
+        }
+
+        /* Love Notes */
+        .love-stars {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .love-star {
+            font-size: 2rem;
+            cursor: pointer;
+            color: gold;
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .love-star:hover {
+            transform: scale(1.3) rotate(15deg);
+        }
+
+        .love-star .note {
+            visibility: hidden;
+            width: 120px;
+            background-color: white;
+            color: black;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            font-family: var(--body-font);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .love-star:hover .note {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-cosmic {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10;
+        }
     </style>
 </head>
 
-<body>
-    <canvas id="particleCanvas"></canvas>
-
-    <!-- Hero -->
+<body><canvas id="particleCanvas"></canvas><!-- Hero -->
     <section class="hero" data-aos="fade-in" data-aos-duration="2000">
         <h1>The Library of Us</h1>
         <h2>Volume 1: From Class 9 to Forever</h2>
-    </section>
-
-    <!-- Chapter 1: Mischief Managed -->
+    </section><!-- Chapter 1: Mischief Managed -->
     <section>
         <div class="chapter-header" data-aos="fade-up">
             <h2>Chapter 1: Mischief Managed</h2>
@@ -583,9 +825,7 @@
                 <div class="handwritten">Since First Eyeliner</div>
             </div>
         </div>
-    </section>
-
-    <!-- Chapter 2: Connection in Chaos -->
+    </section><!-- Chapter 2: Connection in Chaos -->
     <section class="warm-sunset">
         <div class="chapter-header" data-aos="fade-up">
             <h2>Chapter 2: Connection in Chaos</h2>
@@ -605,9 +845,7 @@
                 <div class="handwritten">Heart <3< /div>
                 </div>
             </div>
-    </section>
-
-    <!-- Chapter 3: The Adventure Log -->
+    </section><!-- Chapter 3: The Adventure Log -->
     <section>
         <div class="chapter-header" data-aos="fade-up">
             <h2>Chapter 3: The Adventure Log</h2>
@@ -639,9 +877,7 @@
                 <div class="handwritten">Trip</div>
             </div>
         </div>
-    </section>
-
-    <!-- Chapter 4: Smells Like Strawberries -->
+    </section><!-- Chapter 4: Smells Like Strawberries -->
     <section>
         <div class="chapter-header" data-aos="fade-up">
             <h2>Chapter 4: Smells Like Strawberries</h2>
@@ -673,9 +909,7 @@
                 <div class="handwritten">Aggressive Hug</div>
             </div>
         </div>
-    </section>
-
-    <!-- Chapter 5: My Favorite Version of You -->
+    </section><!-- Chapter 5: My Favorite Version of You -->
     <section>
         <div class="chapter-header" data-aos="fade-up">
             <h2>Chapter 5: My Favorite Version of You</h2>
@@ -723,262 +957,507 @@
                 <div class="handwritten">Tired</div>
             </div>
         </div>
-    </section>
-
-    <!-- Chapter 6: Through the Years (Timeline) -->
+    </section><!-- Chapter 6: Through the Years (Timeline) -->
     <section>
         <div class="chapter-header" data-aos="fade-up">
             <h2>Chapter 6: Through the Years</h2>
             <p>Our Timeline due for Update (2018 - 2026)</p>
         </div>
-
-        <div class="timeline">
-            <!-- 2018 -->
+        <div class="timeline"><!-- 2018 -->
             <div class="container-tl left" data-aos="fade-right">
                 <div class="content-tl">
-                    <h2>2018</h2>
-                    <img src="Images/2018.JPG" onerror="this.src='https://placehold.co/400x300?text=2018';">
+                    <h2>2018</h2><img src="Images/2018.JPG"
+                        onerror="this.src='https://placehold.co/400x300?text=2018';">
                     <div class="handwritten">The Beginning</div>
                 </div>
-            </div>
-            <!-- 2019 -->
+            </div><!-- 2019 -->
             <div class="container-tl right" data-aos="fade-left">
                 <div class="content-tl">
-                    <h2>2019</h2>
-                    <img src="Images/2019.JPG" onerror="this.src='https://placehold.co/400x300?text=2019';">
+                    <h2>2019</h2><img src="Images/2019.JPG"
+                        onerror="this.src='https://placehold.co/400x300?text=2019';">
                     <div class="handwritten">Finding Us</div>
                 </div>
-            </div>
-            <!-- 2020 -->
+            </div><!-- 2020 -->
             <div class="container-tl left" data-aos="fade-right">
                 <div class="content-tl">
-                    <h2>2020</h2>
-                    <img src="Images/2020.jpg" onerror="this.src='https://placehold.co/400x300?text=2020';">
+                    <h2>2020</h2><img src="Images/2020.jpg"
+                        onerror="this.src='https://placehold.co/400x300?text=2020';">
                     <div class="handwritten">Surviving Chaos</div>
                 </div>
-            </div>
-            <!-- 2021 -->
+            </div><!-- 2021 -->
             <div class="container-tl right" data-aos="fade-left">
                 <div class="content-tl">
-                    <h2>2021</h2>
-                    <img src="Images/2021.jpg" onerror="this.src='https://placehold.co/400x300?text=2021';">
+                    <h2>2021</h2><img src="Images/2021.jpg"
+                        onerror="this.src='https://placehold.co/400x300?text=2021';">
                     <div class="handwritten">Growing Stronger</div>
                 </div>
-            </div>
-            <!-- 2022 -->
+            </div><!-- 2022 -->
             <div class="container-tl left" data-aos="fade-right">
                 <div class="content-tl">
-                    <h2>2022</h2>
-                    <img src="Images/2022.JPG" onerror="this.src='https://placehold.co/400x300?text=2022';">
+                    <h2>2022</h2><img src="Images/2022.JPG"
+                        onerror="this.src='https://placehold.co/400x300?text=2022';">
                     <div class="handwritten">Adventures</div>
                 </div>
-            </div>
-            <!-- 2023 -->
+            </div><!-- 2023 -->
             <div class="container-tl right" data-aos="fade-left">
                 <div class="content-tl">
-                    <h2>2023</h2>
-                    <img src="Images/2023.JPG" onerror="this.src='https://placehold.co/400x300?text=2023';">
+                    <h2>2023</h2><img src="Images/2023.JPG"
+                        onerror="this.src='https://placehold.co/400x300?text=2023';">
                     <div class="handwritten">Building Dreams</div>
                 </div>
-            </div>
-            <!-- 2024 -->
+            </div><!-- 2024 -->
             <div class="container-tl left" data-aos="fade-right">
                 <div class="content-tl">
-                    <h2>2024</h2>
-                    <img src="Images/2024.JPG" onerror="this.src='https://placehold.co/400x300?text=2024';">
+                    <h2>2024</h2><img src="Images/2024.JPG"
+                        onerror="this.src='https://placehold.co/400x300?text=2024';">
                     <div class="handwritten">Still Crazy</div>
                 </div>
-            </div>
-            <!-- 2025 -->
+            </div><!-- 2025 -->
             <div class="container-tl right" data-aos="fade-left">
                 <div class="content-tl">
-                    <h2>2025</h2>
-                    <img src="Images/2025.JPG" onerror="this.src='https://placehold.co/400x300?text=2025';">
+                    <h2>2025</h2><img src="Images/2025.JPG"
+                        onerror="this.src='https://placehold.co/400x300?text=2025';">
                     <div class="handwritten">Future Memories</div>
                 </div>
-            </div>
-            <!-- 2026 -->
+            </div><!-- 2026 -->
             <div class="container-tl left" data-aos="fade-right">
                 <div class="content-tl">
-                    <h2>2026</h2>
-                    <img src="https://placehold.co/400x300?text=Coming+Soon" alt="2026">
+                    <h2>2026</h2><img src="https://placehold.co/400x300?text=Coming+Soon" alt="2026">
                     <div class="handwritten">Forever & Always</div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Volume 2 -->
+    </section><!-- Volume 2 -->
     <section class="volume-2" data-aos="fade-in">
         <h2>Volume 2: The Long Distance Edition</h2>
-    </section>
-
-    <!-- Footer -->
-    <div class="footer">
-        <button id="footerBtn" class="marauder-btn">I solemnly swear that I am up to no good</button>
-    </div>
-
-    <!-- Password Modal -->
+    </section><!-- Footer -->
+    <div class="footer"><button id="footerBtn" class="marauder-btn">I solemnly swear that I am up to no good</button>
+        <div id="starTrigger" class="star-trigger" onclick="openCosmicModal()">✨</div>
+    </div><!-- Password Modal -->
     <div id="passwordModal" class="modal">
         <div class="modal-content">
             <h2 style="font-family: 'Cinzel'; margin-bottom: 20px;">Reveal the Secrets</h2>
-            <p style="font-family: 'Merriweather';">To reveal the secrets, tell me: What was our first date?</p>
-            <input type="text" id="passwordInput" placeholder="Answer here...">
-            <button class="marauder-btn" onclick="checkPassword()">Unlock</button>
+            <p style="font-family: 'Merriweather';">To reveal the secrets,
+                tell me: What was our first date?</p><input type="text" id="passwordInput"
+                placeholder="Answer here..."><button class="marauder-btn" onclick="checkPassword()">Unlock</button>
         </div>
     </div>
-
-    <!-- Birthday Popup -->
-    <div id="birthdayPopup" class="modal">
-        <div class="modal-content" style="border: 4px double #ff6b6b;">
-            <h2 style="font-size: 3rem; color: #ff6b6b; margin-bottom: 1rem; font-family: var(--heading-font);">Happy
-                Birthday<br>Sweet Heart! ❤️</h2>
-            <p style="font-size: 1.5rem; color: #555; margin-bottom: 2rem; font-family: var(--handwriting-font);">"I
-                swear, we are upto no good..."</p>
-            <button class="marauder-btn" onclick="openMap()">Open the Map</button>
+    < !-- Birthday Popup -->
+        <div id="birthdayPopup" class="modal">
+            <div class="modal-content" style="border: 4px double #ff6b6b;">
+                <h2 style="font-size: 3rem; color: #ff6b6b; margin-bottom: 1rem; font-family: var(--heading-font);">
+                    Happy Birthday<br>Sweet Heart ! ❤️</h2>
+                <p style="font-size: 1.5rem; color: #555; margin-bottom: 2rem; font-family: var(--handwriting-font);">"I
+                    swear,
+                    we are upto no good..."</p>
+                <button class="marauder-btn" onclick="openMap()">Open the Map</button>
+            </div>
         </div>
-    </div>
+        < !-- Map Overlay -->
+            <div id="mapOverlay" class="map-overlay">
+                <div class="close-map" onclick="closeMap()">Mischief Managed_</div>
+                <h2
+                    style="text-align: center; margin-bottom: 20px; font-family: 'Cinzel', serif; font-size: 2.5rem; color: #3E2723;">
+                    The Marauder's Map</h2>
 
-    <!-- Map Overlay -->
-    <div id="mapOverlay" class="map-overlay">
-        <div class="close-map" onclick="closeMap()">Mischief Managed_</div>
-        <h2
-            style="text-align: center; margin-bottom: 20px; font-family: 'Cinzel', serif; font-size: 2.5rem; color: #3E2723;">
-            The Marauder's Map</h2>
+                <div class="map-container">
+                    < !-- Winding Path SVG (Extended for 4 stops) --><svg class="map-path-svg" viewBox="0 0 350 900"
+                            preserveAspectRatio="none">
+                            <path d="M 70 90 C 70 200, 280 200, 280 315 S 70 430, 70 540 S 280 650, 280 765" />
+                        </svg>
+                        < !-- Footprints following path -->
+                            <div class="footprints"><i class="fas fa-shoe-prints"></i></div>
+                            <div class="map-stop stop-1" onclick="showClue(1)"><i class="fas fa-gift"></i></div>
+                            <div class="map-stop stop-2" onclick="showClue(2)"><i class="fas fa-lightbulb"></i></div>
+                            <div class="map-stop stop-3" onclick="showClue(3)"><i class="fas fa-bolt"></i></div>
+                            <div class="map-stop stop-4" onclick="showClue(4)"><i class="fas fa-sun"></i></div>
+                </div>
+            </div>
+            < !-- Clue Modal -->
+                <div id="clueModal" class="clue-modal">
+                    <h3 id="clueTitle" style="color: var(--sage-green); margin-bottom: 1rem;">Title</h3>
+                    <p id="clueText"
+                        style="font-size: 1.4rem; line-height: 1.4; margin-bottom: 1.5rem; font-family: var(--handwriting-font);">
+                        Clue text goes here.</p><button class="marauder-btn" onclick="closeClue()">Got it</button>
+                </div>
+                < !-- Cosmic Modal -->
+                    <div id="cosmicModal" class="cosmic-modal">
+                        <div class="stars"></div>
+                        <div class="twinkling"></div>
+                        <div class="close-cosmic" onclick="closeCosmicModal()">&times;
+                        </div>
+                        <div class="cosmic-content" id="zodiacStep">
+                            <h2 style="font-family: 'Cinzel'; margin-bottom: 20px;">The Cosmic Connection</h2>
+                            <p style="font-family: 'Merriweather'; margin-bottom: 20px;">Do our stars align?</p>
+                            <div class="zodiac-selector">
+                                <div class="z-group"><label>Her Sign</label><select id="herSign" class="z-select">
+                                        <option value="">Select...</option>
+                                        <option value="capricorn">Capricorn ♑</option>
+                                        <option value="aquarius">Aquarius ♒</option>
+                                        <option value="pisces">Pisces ♓</option>
+                                        <option value="aries">Aries ♈</option>
+                                        <option value="taurus">Taurus ♉</option>
+                                        <option value="gemini">Gemini ♊</option>
+                                        < !-- Add others if needed, but these are key for now -->
+                                            <option value="cancer">Cancer ♋</option>
+                                            <option value="leo">Leo ♌</option>
+                                            <option value="virgo">Virgo ♍</option>
+                                            <option value="libra">Libra ♎</option>
+                                            <option value="scorpio">Scorpio ♏</option>
+                                            <option value="sagittarius">Sagittarius ♐</option>
+                                    </select></div>
+                                <div class="z-group"><label>His Sign</label><select id="hisSign" class="z-select">
+                                        <option value="">Select...</option>
+                                        <option value="gemini">Gemini ♊</option>
+                                        <option value="capricorn">Capricorn ♑</option>
+                                        <option value="aquarius">Aquarius ♒</option>
+                                        <option value="pisces">Pisces ♓</option>
+                                        <option value="aries">Aries ♈</option>
+                                        <option value="taurus">Taurus ♉</option>
+                                        <option value="cancer">Cancer ♋</option>
+                                        <option value="leo">Leo ♌</option>
+                                        <option value="virgo">Virgo ♍</option>
+                                        <option value="libra">Libra ♎</option>
+                                        <option value="scorpio">Scorpio ♏</option>
+                                        <option value="sagittarius">Sagittarius ♐</option>
+                                    </select></div>
+                            </div><button class="check-stars-btn" onclick="checkCosmicMatch()">Consult the Stars
+                                ✨</button>
+                            <p id="cosmicMsg" style="margin-top: 15px; color: #ff6b6b; min-height: 24px;"></p>
+                        </div>
+                        <div class="cosmic-content proposal-hidden" id="proposalStep">
+                            <h2 style="font-family: 'Cinzel'; font-size: 1.5rem; color: #dcd0ff;">Earth meets Air...
+                            </h2>
+                            <p style="font-family: 'Merriweather'; font-size: 1.1rem; margin-top: 10px;">A connection
+                                written in the stars.</p><canvas id="constellationCanvas" width="400" height="200"
+                                style="width:100%; height:auto; display:none;"></canvas>
+                            <div class="big-question">Will you be my Valentine?</div>
+                            <div class="response-buttons">
+                                < !-- Wrapper for No button to constrain movement area if needed, or just body -->
+                                    <button class="btn-yes" onclick="sheSaidYes()">YES ! ❤️</button>
+                                    <div style="position: relative; width: 100px; height: 50px; display: inline-block;">
+                                        <button id="noBtn" class="btn-no" onmouseover="runAway()"
+                                            onclick="runAway()">No</button>
+                                    </div>
+                            </div>
+                            <div id="loveNotes" class="love-stars"
+                                style="display:none; opacity:0; transition: opacity 1s;">
+                                <div class="love-star">★<span class="note">Your Ambition inspires me</span></div>
+                                <div class="love-star">★<span class="note">You are my Rock</span></div>
+                                <div class="love-star">★<span class="note">Your Loyalty is rare</span></div>
+                                <div class="love-star">★<span class="note">Your Smile heals me</span></div>
+                                <div class="love-star">★<span class="note">Forever & Always</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    < !-- Audio Element --><audio id="loveSong"
+                            src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto"></audio>
+                        < !-- POLDERHOLDER SONG -->
+                            < !-- Scripts -->
+                                <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+                                <script
+                                    src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+                                <script> // Init AOS
 
-        <div class="map-container">
-            <!-- Winding Path SVG (Extended for 4 stops) -->
-            <svg class="map-path-svg" viewBox="0 0 350 900" preserveAspectRatio="none">
-                <path d="M 70 90 C 70 200, 280 200, 280 315 S 70 430, 70 540 S 280 650, 280 765" />
-            </svg>
+                                    AOS.init({
+                                        duration: 1500, once: true
+                                    });
 
-            <!-- Footprints following path -->
-            <div class="footprints"><i class="fas fa-shoe-prints"></i></div>
+                                    // Init Particles
+                                    const canvas = document.getElementById('particleCanvas');
+                                    const ctx = canvas.getContext('2d');
+                                    canvas.width = window.innerWidth;
+                                    canvas.height = window.innerHeight;
+                                    let particles = [];
+                                    const particleCount = 50;
 
-            <div class="map-stop stop-1" onclick="showClue(1)"> <i class="fas fa-gift"></i> </div>
-            <div class="map-stop stop-2" onclick="showClue(2)"> <i class="fas fa-lightbulb"></i> </div>
-            <div class="map-stop stop-3" onclick="showClue(3)"> <i class="fas fa-bolt"></i> </div>
-            <div class="map-stop stop-4" onclick="showClue(4)"> <i class="fas fa-sun"></i> </div>
-        </div>
-    </div>
+                                    class Particle {
+                                        constructor() {
+                                            this.x = Math.random() * canvas.width;
+                                            this.y = Math.random() * canvas.height;
+                                            this.size = Math.random() * 2 + 0.5;
+                                            this.speedX = Math.random() * 1 - 0.5;
+                                            this.speedY = Math.random() * 1 - 0.5;
+                                            this.opacity = Math.random() * 0.5 + 0.2;
+                                        }
 
-    <!-- Clue Modal -->
-    <div id="clueModal" class="clue-modal">
-        <h3 id="clueTitle" style="color: var(--sage-green); margin-bottom: 1rem;">Title</h3>
-        <p id="clueText"
-            style="font-size: 1.4rem; line-height: 1.4; margin-bottom: 1.5rem; font-family: var(--handwriting-font);">
-            Clue text goes here.</p>
-        <button class="marauder-btn" onclick="closeClue()">Got it</button>
-    </div>
+                                        update() {
+                                            this.x += this.speedX;
+                                            this.y += this.speedY;
+                                            if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                                            if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+                                        }
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+                                        draw() {
+                                            ctx.fillStyle = `rgba(212, 175, 55, $ {
+                        this.opacity
+                    })`;
+                                            /* Gold dust */
+                                            ctx.beginPath();
+                                            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                                            ctx.fill();
+                                        }
+                                    }
 
-    <script>
-        // Init AOS
-        AOS.init({ duration: 1500, once: true });
+                                    function initParticles() {
+                                        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+                                    }
 
-        // Init Particles
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        let particles = [];
-        const particleCount = 50;
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.opacity = Math.random() * 0.5 + 0.2;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-            }
-            draw() {
-                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`; /* Gold dust */
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-        function initParticles() { for (let i = 0; i < particleCount; i++) particles.push(new Particle()); }
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) { particles[i].update(); particles[i].draw(); }
-            requestAnimationFrame(animateParticles);
-        }
-        initParticles();
-        animateParticles();
-        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles = []; initParticles(); });
+                                    function animateParticles() {
+                                        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Logic
-        const footerBtn = document.getElementById('footerBtn');
-        const passwordModal = document.getElementById('passwordModal');
-        const mapOverlay = document.getElementById('mapOverlay');
-        const birthdayPopup = document.getElementById('birthdayPopup');
-        const passwordInput = document.getElementById('passwordInput');
-        const clueModal = document.getElementById('clueModal');
-        const clueTitle = document.getElementById('clueTitle');
-        const clueText = document.getElementById('clueText');
+                                        for (let i = 0; i < particles.length; i++) {
+                                            particles[i].update();
+                                            particles[i].draw();
+                                        }
 
-        footerBtn.addEventListener('click', () => { passwordModal.style.display = 'flex'; });
+                                        requestAnimationFrame(animateParticles);
+                                    }
 
-        function checkPassword() {
-            const val = passwordInput.value.trim().toLowerCase();
-            if (val === 'dosa date') {
-                passwordModal.style.display = 'none';
-                confetti({ particleCount: 150, spread: 70, origin: { y: 0.8 }, colors: ['#9DC183', '#E6E6FA', '#ff6b6b'] });
-                setTimeout(() => { birthdayPopup.style.display = 'flex'; }, 500);
-            } else {
-                const content = document.querySelector('.modal-content');
-                content.classList.add('shake');
-                setTimeout(() => content.classList.remove('shake'), 500);
-                alert("Try again, Muggle!");
-            }
-        }
+                                    initParticles();
+                                    animateParticles();
 
-        function openMap() {
-            birthdayPopup.style.display = 'none';
-            mapOverlay.style.display = 'flex';
-        }
+                                    window.addEventListener('resize', () => {
+                                        canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles = []; initParticles();
+                                    });
 
-        function closeMap() { mapOverlay.style.display = 'none'; }
+                                    // Logic
+                                    const footerBtn = document.getElementById('footerBtn');
+                                    const passwordModal = document.getElementById('passwordModal');
+                                    const mapOverlay = document.getElementById('mapOverlay');
+                                    const birthdayPopup = document.getElementById('birthdayPopup');
+                                    const passwordInput = document.getElementById('passwordInput');
+                                    const clueModal = document.getElementById('clueModal');
+                                    const clueTitle = document.getElementById('clueTitle');
+                                    const clueText = document.getElementById('clueText');
 
-        /* Clues updated with Cake, Cookies, Vanity Box */
-        const clues = {
-            1: {
-                title: "Sugary Secrets & Style",
-                text: "Something baked with love and care, <br> A vanity box for the fairest fair. <br> Cake and Cookies to make the start sweet, <br> <strong>Find them all for your first treat!</strong> 🍪🎂💄"
-            },
-            2: {
-                title: "Lumos!",
-                text: "When the sun goes down... <br> Check the passenger sun-visor for a light! 💡"
-            },
-            3: {
-                title: "Mischief Managed",
-                text: "Losing your page makes you surly... <br> Look in the glove compartment! ⚡"
-            },
-            4: {
-                title: "Herbology Class",
-                text: "It's not quite a rose... <br> Check the backseat for a bloom! 🌻"
-            }
-        };
+                                    footerBtn.addEventListener('click', () => {
+                                        passwordModal.style.display = 'flex';
+                                    });
 
-        function showClue(id) {
-            clueTitle.innerText = clues[id].title;
-            clueText.innerHTML = clues[id].text;
-            clueModal.style.display = 'block';
-        }
+                                    function checkPassword() {
+                                        const val = passwordInput.value.trim().toLowerCase();
 
-        function closeClue() { clueModal.style.display = 'none'; }
-    </script>
+                                        if (val === 'dosa date') {
+                                            passwordModal.style.display = 'none';
+
+                                            confetti({
+                                                particleCount: 150, spread: 70, origin: {
+                                                    y: 0.8
+                                                }
+
+                                                , colors: ['#9DC183', '#E6E6FA', '#ff6b6b']
+                                            });
+
+                                            setTimeout(() => {
+                                                birthdayPopup.style.display = 'flex';
+                                            }
+
+                                                , 500);
+                                        }
+
+                                        else {
+                                            const content = document.querySelector('.modal-content');
+                                            content.classList.add('shake');
+                                            setTimeout(() => content.classList.remove('shake'), 500);
+                                            alert("Try again, Muggle!");
+                                        }
+                                    }
+
+                                    function openMap() {
+                                        birthdayPopup.style.display = 'none';
+                                        mapOverlay.style.display = 'flex';
+                                    }
+
+                                    function closeMap() {
+                                        mapOverlay.style.display = 'none';
+                                    }
+
+                                    /* Clues updated with Cake, Cookies, Vanity Box */
+                                    const clues = {
+                                        1: {
+                                            title: "Sugary Secrets & Style",
+                                            text: "Something baked with love and care, <br> A vanity box for the fairest fair. <br> Cake and Cookies to make the start sweet, <br> <strong>Find them all for your first treat!</strong> 🍪🎂💄"
+                                        }
+
+                                        ,
+                                        2: {
+                                            title: "Lumos!",
+                                            text: "When the sun goes down... <br> Check the passenger sun-visor for a light! 💡"
+                                        }
+
+                                        ,
+                                        3: {
+                                            title: "Mischief Managed",
+                                            text: "Losing your page makes you surly... <br> Look in the glove compartment! ⚡"
+                                        }
+
+                                        ,
+                                        4: {
+                                            title: "Herbology Class",
+                                            text: "It's not quite a rose... <br> Check the backseat for a bloom! 🌻"
+                                        }
+                                    }
+
+                                        ;
+
+                                    function showClue(id) {
+                                        clueTitle.innerText = clues[id].title;
+                                        clueText.innerHTML = clues[id].text;
+                                        clueModal.style.display = 'block';
+                                    }
+
+                                    function closeClue() {
+                                        clueModal.style.display = 'none';
+                                    }
+
+                                    /* --- Cosmic Valentine Logic --- */
+                                    const cosmicModal = document.getElementById('cosmicModal');
+                                    const zodiacStep = document.getElementById('zodiacStep');
+                                    const proposalStep = document.getElementById('proposalStep');
+                                    const cosmicMsg = document.getElementById('cosmicMsg');
+                                    const noBtn = document.getElementById('noBtn');
+                                    const constellationCanvas = document.getElementById('constellationCanvas');
+                                    const loveSong = document.getElementById('loveSong');
+
+                                    function openCosmicModal() {
+                                        cosmicModal.style.display = 'flex';
+                                        zodiacStep.style.display = 'block';
+                                        proposalStep.style.display = 'none';
+                                        cosmicMsg.innerText = '';
+                                    }
+
+                                    function closeCosmicModal() {
+                                        cosmicModal.style.display = 'none';
+                                        loveSong.pause();
+                                        loveSong.currentTime = 0;
+                                    }
+
+                                    function checkCosmicMatch() {
+                                        const her = document.getElementById('herSign').value;
+                                        const his = document.getElementById('hisSign').value;
+
+                                        if (her === 'capricorn' && his === 'gemini') {
+                                            // Match!
+                                            zodiacStep.style.display = 'none';
+                                            proposalStep.style.display = 'block';
+                                            proposalStep.classList.remove('proposal-hidden'); // triggers animation
+                                            drawConstellation();
+                                        } else if (her && his) {
+                                            cosmicMsg.innerText = "The stars are confused... Try her true sign (♑) and yours (♊)!";
+                                        } else {
+                                            cosmicMsg.innerText = "Please select both signs to consult the stars.";
+                                        }
+                                    }
+
+                                    function runAway() {
+                                        const x = Math.random() * (window.innerWidth - 100);
+                                        const y = Math.random() * (window.innerHeight - 50);
+                                        noBtn.style.position = 'fixed';
+                                        noBtn.style.left = x + 'px';
+                                        noBtn.style.top = y + 'px';
+                                    }
+
+                                    function sheSaidYes() {
+                                        // 1. Confetti
+                                        var duration = 5 * 1000;
+                                        var animationEnd = Date.now() + duration;
+                                        var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 3001 };
+
+                                        var random = function (min, max) { return Math.random() * (max - min) + min; }
+
+                                        var interval = setInterval(function () {
+                                            var timeLeft = animationEnd - Date.now();
+
+                                            if (timeLeft <= 0) {
+                                                return clearInterval(interval);
+                                            }
+
+                                            var particleCount = 50 * (timeLeft / duration);
+
+                                            // since particles fall down, start a bit higher than random
+                                            confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } }));
+                                            confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
+                                        }, 250);
+
+                                        // 2. Music
+                                        loveSong.play().catch(e => console.log("Audio play failed (user interaction needed likely):", e));
+
+                                        // 3. Show Love Notes
+                                        document.getElementById('loveNotes').style.display = 'flex';
+                                        setTimeout(() => {
+                                            document.getElementById('loveNotes').style.opacity = '1';
+                                        }, 100);
+
+                                        // 4. Change Title
+                                        document.querySelector('.big-question').innerHTML = "I Knew It! ❤️<br><span style='font-size:2rem'>See you on Feb 14th</span>";
+                                        document.querySelector('.response-buttons').style.display = 'none';
+                                    }
+
+                                    function drawConstellation() {
+                                        const ctx = constellationCanvas.getContext('2d');
+                                        const w = constellationCanvas.width = constellationCanvas.parentElement.offsetWidth;
+                                        const h = constellationCanvas.height = 200;
+                                        constellationCanvas.style.display = 'block';
+
+                                        ctx.clearRect(0, 0, w, h);
+                                        ctx.strokeStyle = 'white';
+                                        ctx.fillStyle = 'white';
+                                        ctx.lineWidth = 1;
+
+                                        // Simple "Gemini" (Left) and "Capricorn" (Right) abstract connecting
+                                        // Points for Gemini (Castor & Pollux theme)
+                                        const geminiPoints = [{ x: 50, y: 50 }, { x: 80, y: 60 }, { x: 60, y: 100 }, { x: 90, y: 110 }];
+                                        // Points for Capricorn (Sea Goat theme - V shapeish)
+                                        const capriPoints = [{ x: 300, y: 50 }, { x: 350, y: 40 }, { x: 320, y: 100 }, { x: 360, y: 120 }, { x: 320, y: 150 }];
+
+                                        // Adjust points based on width
+                                        const offsetX = (w - 400) / 2;
+                                        if (offsetX > 0) {
+                                            geminiPoints.forEach(p => p.x += offsetX);
+                                            capriPoints.forEach(p => p.x += offsetX);
+                                        }
+
+                                        function drawStars(points) {
+                                            ctx.beginPath();
+                                            points.forEach((p, i) => {
+                                                ctx.moveTo(p.x, p.y);
+                                                ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+                                                if (i < points.length - 1) {
+                                                    ctx.lineTo(points[i + 1].x, points[i + 1].y);
+                                                }
+                                            });
+                                            ctx.stroke();
+                                            ctx.fill();
+                                        }
+
+                                        drawStars(geminiPoints);
+                                        drawStars(capriPoints);
+
+                                        // Connection Line (Animated)
+                                        let progress = 0;
+                                        function animateConnection() {
+                                            if (progress > 1) return;
+                                            const start = geminiPoints[geminiPoints.length - 1];
+                                            const end = capriPoints[2]; // Connect to middle of Capricorn
+
+                                            const curX = start.x + (end.x - start.x) * progress;
+                                            const curY = start.y + (end.y - start.y) * progress;
+
+                                            ctx.beginPath();
+                                            ctx.moveTo(start.x, start.y);
+                                            ctx.lineTo(curX, curY);
+                                            ctx.strokeStyle = `rgba(255, 107, 107, ${progress})`; // Fade in red string
+                                            ctx.lineWidth = 2;
+                                            ctx.stroke();
+
+                                            progress += 0.01;
+                                            requestAnimationFrame(animateConnection);
+                                        }
+                                        animateConnection();
+                                    }
+
+                                </script>
 </body>
 
 </html>
