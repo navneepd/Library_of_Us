@@ -1175,6 +1175,14 @@
         /* Volume 2 */
         .volume-2 {
             transform: translateZ(-7000px) !important;
+            height: auto !important;
+            /* Allow growth */
+            min-height: 100vh;
+            justify-content: flex-start;
+            /* Start from top */
+            padding-top: 100px;
+            overflow: visible !important;
+            /* Don't clip */
         }
 
         /* Footer */
@@ -1436,7 +1444,7 @@
                 </div>
             </div>
         </section><!-- Volume 2 -->
-        <section class="volume-2" data-aos="fade-in" style="position: relative; overflow: hidden;">
+        <section class="volume-2" data-aos="fade-in" style="position: relative;">
             <!-- Background animation for volume 2 -->
             <div class="stars" style="opacity: 0.5;"></div>
 
@@ -2044,7 +2052,6 @@
             }
             setInterval(updateCountdown, 1000);
 
-            /* --- Phase 2: Interactive Features --- */
 
             // 1. Haptic Heartbeat (Enhanced)
             const scanner = document.querySelector('.fingerprint-scanner');
