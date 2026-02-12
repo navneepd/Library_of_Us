@@ -790,6 +790,99 @@
             cursor: pointer;
             z-index: 10;
         }
+
+        /* Volume 2 Aesthetic Trigger */
+        .cosmic-trigger-container {
+            display: flex;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .cosmic-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px 40px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform-style: preserve-3d;
+        }
+
+        .cosmic-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.4);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .card-content {
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .cosmic-card h3 {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: #dcd0ff;
+        }
+
+        .cosmic-card p {
+            font-family: var(--body-font);
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .card-glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .cosmic-card:hover .card-glow {
+            opacity: 1;
+            animation: rotateGlow 5s linear infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes rotateGlow {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
@@ -1028,13 +1121,21 @@
             </div>
         </div>
     </section><!-- Volume 2 -->
-    <section class="volume-2" data-aos="fade-in">
-        <h2>Volume 2: The Long Distance Edition</h2>
-        <div style="margin-top: 20px;">
-            <button class="marauder-btn" onclick="openCosmicModal()"
-                style="background: rgba(255,255,255,0.2); border: 1px solid white; color: white;">
-                Tap to Reveal ✨
-            </button>
+    <section class="volume-2" data-aos="fade-in" style="position: relative; overflow: hidden;">
+        <!-- Background animation for volume 2 -->
+        <div class="stars" style="opacity: 0.5;"></div>
+
+        <h2 style="position: relative; z-index: 2;">Volume 2: The Long Distance Edition</h2>
+
+        <div class="cosmic-trigger-container" style="margin-top: 40px; position: relative; z-index: 2;">
+            <div class="cosmic-card" onclick="openCosmicModal()">
+                <div class="card-content">
+                    <span class="card-icon">💌</span>
+                    <h3>A Message Across the Miles</h3>
+                    <p>Tap to Open</p>
+                </div>
+                <div class="card-glow"></div>
+            </div>
         </div>
     </section><!-- Footer -->
     <div class="footer"><button id="footerBtn" class="marauder-btn">I solemnly swear that I am up to no good</button>
@@ -1153,8 +1254,7 @@
             </div>
         </div>
     </div>
-    <!-- Audio Element --><audio id="loveSong" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-        preload="auto"></audio>
+    <!-- Audio Element --><audio id="loveSong" src="Ki_Je_Palu_Tumak.mp3" preload="auto"></audio>
     <!-- POLDERHOLDER SONG -->
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -1390,7 +1490,7 @@
             }, 100);
 
             // 4. Change Title
-            document.querySelector('.big-question').innerHTML = "I Knew It! ❤️<br><span style='font-size:2rem'>See you on Feb 14th</span>";
+            document.querySelector('.big-question').innerHTML = "I Knew It! ❤️<br><span style='font-size:1.8rem'>Distance implies so little,<br>when you mean so much.</span>";
             document.querySelector('.response-buttons').style.display = 'none';
         }
 
