@@ -1042,422 +1042,417 @@
                 placeholder="Answer here..."><button class="marauder-btn" onclick="checkPassword()">Unlock</button>
         </div>
     </div>
-    < !-- Birthday Popup -->
-        <div id="birthdayPopup" class="modal">
-            <div class="modal-content" style="border: 4px double #ff6b6b;">
-                <h2 style="font-size: 3rem; color: #ff6b6b; margin-bottom: 1rem; font-family: var(--heading-font);">
-                    Happy Birthday<br>Sweet Heart ! ❤️</h2>
-                <p style="font-size: 1.5rem; color: #555; margin-bottom: 2rem; font-family: var(--handwriting-font);">"I
-                    swear,
-                    we are upto no good..."</p>
-                <button class="marauder-btn" onclick="openMap()">Open the Map</button>
+    <!-- Birthday Popup -->
+    <div id="birthdayPopup" class="modal">
+        <div class="modal-content" style="border: 4px double #ff6b6b;">
+            <h2 style="font-size: 3rem; color: #ff6b6b; margin-bottom: 1rem; font-family: var(--heading-font);">
+                Happy Birthday<br>Sweet Heart ! ❤️</h2>
+            <p style="font-size: 1.5rem; color: #555; margin-bottom: 2rem; font-family: var(--handwriting-font);">"I
+                swear,
+                we are upto no good..."</p>
+            <button class="marauder-btn" onclick="openMap()">Open the Map</button>
+        </div>
+    </div>
+    <!-- Map Overlay -->
+    <div id="mapOverlay" class="map-overlay">
+        <div class="close-map" onclick="closeMap()">Mischief Managed_</div>
+        <h2
+            style="text-align: center; margin-bottom: 20px; font-family: 'Cinzel', serif; font-size: 2.5rem; color: #3E2723;">
+            The Marauder's Map</h2>
+
+        <div class="map-container">
+            <!-- Winding Path SVG (Extended for 4 stops) --><svg class="map-path-svg" viewBox="0 0 350 900"
+                preserveAspectRatio="none">
+                <path d="M 70 90 C 70 200, 280 200, 280 315 S 70 430, 70 540 S 280 650, 280 765" />
+            </svg>
+            <!-- Footprints following path -->
+            <div class="footprints"><i class="fas fa-shoe-prints"></i></div>
+            <div class="map-stop stop-1" onclick="showClue(1)"><i class="fas fa-gift"></i></div>
+            <div class="map-stop stop-2" onclick="showClue(2)"><i class="fas fa-lightbulb"></i></div>
+            <div class="map-stop stop-3" onclick="showClue(3)"><i class="fas fa-bolt"></i></div>
+            <div class="map-stop stop-4" onclick="showClue(4)"><i class="fas fa-sun"></i></div>
+        </div>
+    </div>
+    <!-- Clue Modal -->
+    <div id="clueModal" class="clue-modal">
+        <h3 id="clueTitle" style="color: var(--sage-green); margin-bottom: 1rem;">Title</h3>
+        <p id="clueText"
+            style="font-size: 1.4rem; line-height: 1.4; margin-bottom: 1.5rem; font-family: var(--handwriting-font);">
+            Clue text goes here.</p><button class="marauder-btn" onclick="closeClue()">Got it</button>
+    </div>
+    <!-- Cosmic Modal -->
+    <div id="cosmicModal" class="cosmic-modal">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="close-cosmic" onclick="closeCosmicModal()">&times;
+        </div>
+        <div class="cosmic-content" id="zodiacStep">
+            <h2 style="font-family: 'Cinzel'; margin-bottom: 20px;">The Cosmic Connection</h2>
+            <p style="font-family: 'Merriweather'; margin-bottom: 20px;">Do our stars align?</p>
+            <div class="zodiac-selector">
+                <div class="z-group"><label>Her Sign</label><select id="herSign" class="z-select">
+                        <option value="">Select...</option>
+                        <option value="capricorn">Capricorn ♑</option>
+                        <option value="aquarius">Aquarius ♒</option>
+                        <option value="pisces">Pisces ♓</option>
+                        <option value="aries">Aries ♈</option>
+                        <option value="taurus">Taurus ♉</option>
+                        <option value="gemini">Gemini ♊</option>
+                        <!-- Add others if needed, but these are key for now -->
+                        <option value="cancer">Cancer ♋</option>
+                        <option value="leo">Leo ♌</option>
+                        <option value="virgo">Virgo ♍</option>
+                        <option value="libra">Libra ♎</option>
+                        <option value="scorpio">Scorpio ♏</option>
+                        <option value="sagittarius">Sagittarius ♐</option>
+                    </select></div>
+                <div class="z-group"><label>His Sign</label><select id="hisSign" class="z-select">
+                        <option value="">Select...</option>
+                        <option value="gemini">Gemini ♊</option>
+                        <option value="capricorn">Capricorn ♑</option>
+                        <option value="aquarius">Aquarius ♒</option>
+                        <option value="pisces">Pisces ♓</option>
+                        <option value="aries">Aries ♈</option>
+                        <option value="taurus">Taurus ♉</option>
+                        <option value="cancer">Cancer ♋</option>
+                        <option value="leo">Leo ♌</option>
+                        <option value="virgo">Virgo ♍</option>
+                        <option value="libra">Libra ♎</option>
+                        <option value="scorpio">Scorpio ♏</option>
+                        <option value="sagittarius">Sagittarius ♐</option>
+                    </select></div>
+            </div><button class="check-stars-btn" onclick="checkCosmicMatch()">Consult the Stars
+                ✨</button>
+            <p id="cosmicMsg" style="margin-top: 15px; color: #ff6b6b; min-height: 24px;"></p>
+        </div>
+        <div class="cosmic-content proposal-hidden" id="proposalStep">
+            <h2 style="font-family: 'Cinzel'; font-size: 1.5rem; color: #dcd0ff;">Earth meets Air...
+            </h2>
+            <p style="font-family: 'Merriweather'; font-size: 1.1rem; margin-top: 10px;">A connection
+                written in the stars.</p><canvas id="constellationCanvas" width="400" height="200"
+                style="width:100%; height:auto; display:none;"></canvas>
+            <div class="big-question">Will you be my Valentine?</div>
+            <div class="response-buttons">
+                <!-- Wrapper for No button to constrain movement area if needed, or just body -->
+                <button class="btn-yes" onclick="sheSaidYes()">YES ! ❤️</button>
+                <div style="position: relative; width: 100px; height: 50px; display: inline-block;">
+                    <button id="noBtn" class="btn-no" onmouseover="runAway()" onclick="runAway()">No</button>
+                </div>
+            </div>
+            <div id="loveNotes" class="love-stars" style="display:none; opacity:0; transition: opacity 1s;">
+                <div class="love-star">★<span class="note">Your Ambition inspires me</span></div>
+                <div class="love-star">★<span class="note">You are my Rock</span></div>
+                <div class="love-star">★<span class="note">Your Loyalty is rare</span></div>
+                <div class="love-star">★<span class="note">Your Smile heals me</span></div>
+                <div class="love-star">★<span class="note">Forever & Always</span></div>
             </div>
         </div>
-        < !-- Map Overlay -->
-            <div id="mapOverlay" class="map-overlay">
-                <div class="close-map" onclick="closeMap()">Mischief Managed_</div>
-                <h2
-                    style="text-align: center; margin-bottom: 20px; font-family: 'Cinzel', serif; font-size: 2.5rem; color: #3E2723;">
-                    The Marauder's Map</h2>
+    </div>
+    <!-- Audio Element --><audio id="loveSong" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        preload="auto"></audio>
+    <!-- POLDERHOLDER SONG -->
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script> // Init AOS
 
-                <div class="map-container">
-                    < !-- Winding Path SVG (Extended for 4 stops) --><svg class="map-path-svg" viewBox="0 0 350 900"
-                            preserveAspectRatio="none">
-                            <path d="M 70 90 C 70 200, 280 200, 280 315 S 70 430, 70 540 S 280 650, 280 765" />
-                        </svg>
-                        < !-- Footprints following path -->
-                            <div class="footprints"><i class="fas fa-shoe-prints"></i></div>
-                            <div class="map-stop stop-1" onclick="showClue(1)"><i class="fas fa-gift"></i></div>
-                            <div class="map-stop stop-2" onclick="showClue(2)"><i class="fas fa-lightbulb"></i></div>
-                            <div class="map-stop stop-3" onclick="showClue(3)"><i class="fas fa-bolt"></i></div>
-                            <div class="map-stop stop-4" onclick="showClue(4)"><i class="fas fa-sun"></i></div>
-                </div>
-            </div>
-            < !-- Clue Modal -->
-                <div id="clueModal" class="clue-modal">
-                    <h3 id="clueTitle" style="color: var(--sage-green); margin-bottom: 1rem;">Title</h3>
-                    <p id="clueText"
-                        style="font-size: 1.4rem; line-height: 1.4; margin-bottom: 1.5rem; font-family: var(--handwriting-font);">
-                        Clue text goes here.</p><button class="marauder-btn" onclick="closeClue()">Got it</button>
-                </div>
-                < !-- Cosmic Modal -->
-                    <div id="cosmicModal" class="cosmic-modal">
-                        <div class="stars"></div>
-                        <div class="twinkling"></div>
-                        <div class="close-cosmic" onclick="closeCosmicModal()">&times;
-                        </div>
-                        <div class="cosmic-content" id="zodiacStep">
-                            <h2 style="font-family: 'Cinzel'; margin-bottom: 20px;">The Cosmic Connection</h2>
-                            <p style="font-family: 'Merriweather'; margin-bottom: 20px;">Do our stars align?</p>
-                            <div class="zodiac-selector">
-                                <div class="z-group"><label>Her Sign</label><select id="herSign" class="z-select">
-                                        <option value="">Select...</option>
-                                        <option value="capricorn">Capricorn ♑</option>
-                                        <option value="aquarius">Aquarius ♒</option>
-                                        <option value="pisces">Pisces ♓</option>
-                                        <option value="aries">Aries ♈</option>
-                                        <option value="taurus">Taurus ♉</option>
-                                        <option value="gemini">Gemini ♊</option>
-                                        < !-- Add others if needed, but these are key for now -->
-                                            <option value="cancer">Cancer ♋</option>
-                                            <option value="leo">Leo ♌</option>
-                                            <option value="virgo">Virgo ♍</option>
-                                            <option value="libra">Libra ♎</option>
-                                            <option value="scorpio">Scorpio ♏</option>
-                                            <option value="sagittarius">Sagittarius ♐</option>
-                                    </select></div>
-                                <div class="z-group"><label>His Sign</label><select id="hisSign" class="z-select">
-                                        <option value="">Select...</option>
-                                        <option value="gemini">Gemini ♊</option>
-                                        <option value="capricorn">Capricorn ♑</option>
-                                        <option value="aquarius">Aquarius ♒</option>
-                                        <option value="pisces">Pisces ♓</option>
-                                        <option value="aries">Aries ♈</option>
-                                        <option value="taurus">Taurus ♉</option>
-                                        <option value="cancer">Cancer ♋</option>
-                                        <option value="leo">Leo ♌</option>
-                                        <option value="virgo">Virgo ♍</option>
-                                        <option value="libra">Libra ♎</option>
-                                        <option value="scorpio">Scorpio ♏</option>
-                                        <option value="sagittarius">Sagittarius ♐</option>
-                                    </select></div>
-                            </div><button class="check-stars-btn" onclick="checkCosmicMatch()">Consult the Stars
-                                ✨</button>
-                            <p id="cosmicMsg" style="margin-top: 15px; color: #ff6b6b; min-height: 24px;"></p>
-                        </div>
-                        <div class="cosmic-content proposal-hidden" id="proposalStep">
-                            <h2 style="font-family: 'Cinzel'; font-size: 1.5rem; color: #dcd0ff;">Earth meets Air...
-                            </h2>
-                            <p style="font-family: 'Merriweather'; font-size: 1.1rem; margin-top: 10px;">A connection
-                                written in the stars.</p><canvas id="constellationCanvas" width="400" height="200"
-                                style="width:100%; height:auto; display:none;"></canvas>
-                            <div class="big-question">Will you be my Valentine?</div>
-                            <div class="response-buttons">
-                                < !-- Wrapper for No button to constrain movement area if needed, or just body -->
-                                    <button class="btn-yes" onclick="sheSaidYes()">YES ! ❤️</button>
-                                    <div style="position: relative; width: 100px; height: 50px; display: inline-block;">
-                                        <button id="noBtn" class="btn-no" onmouseover="runAway()"
-                                            onclick="runAway()">No</button>
-                                    </div>
-                            </div>
-                            <div id="loveNotes" class="love-stars"
-                                style="display:none; opacity:0; transition: opacity 1s;">
-                                <div class="love-star">★<span class="note">Your Ambition inspires me</span></div>
-                                <div class="love-star">★<span class="note">You are my Rock</span></div>
-                                <div class="love-star">★<span class="note">Your Loyalty is rare</span></div>
-                                <div class="love-star">★<span class="note">Your Smile heals me</span></div>
-                                <div class="love-star">★<span class="note">Forever & Always</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    < !-- Audio Element --><audio id="loveSong"
-                            src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto"></audio>
-                        < !-- POLDERHOLDER SONG -->
-                            < !-- Scripts -->
-                                <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-                                <script
-                                    src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-                                <script> // Init AOS
+        AOS.init({
+            duration: 1500, once: true
+        });
 
-                                    AOS.init({
-                                        duration: 1500, once: true
-                                    });
+        // Init Particles
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        const particleCount = 50;
 
-                                    // Init Particles
-                                    const canvas = document.getElementById('particleCanvas');
-                                    const ctx = canvas.getContext('2d');
-                                    canvas.width = window.innerWidth;
-                                    canvas.height = window.innerHeight;
-                                    let particles = [];
-                                    const particleCount = 50;
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
 
-                                    class Particle {
-                                        constructor() {
-                                            this.x = Math.random() * canvas.width;
-                                            this.y = Math.random() * canvas.height;
-                                            this.size = Math.random() * 2 + 0.5;
-                                            this.speedX = Math.random() * 1 - 0.5;
-                                            this.speedY = Math.random() * 1 - 0.5;
-                                            this.opacity = Math.random() * 0.5 + 0.2;
-                                        }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
 
-                                        update() {
-                                            this.x += this.speedX;
-                                            this.y += this.speedY;
-                                            if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                                            if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-                                        }
+            draw() {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                /* Gold dust */
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
 
-                                        draw() {
-                                            ctx.fillStyle = `rgba(212, 175, 55, $ {
-                        this.opacity
-                    })`;
-                                            /* Gold dust */
-                                            ctx.beginPath();
-                                            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                                            ctx.fill();
-                                        }
-                                    }
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+        }
 
-                                    function initParticles() {
-                                        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
-                                    }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                                    function animateParticles() {
-                                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
 
-                                        for (let i = 0; i < particles.length; i++) {
-                                            particles[i].update();
-                                            particles[i].draw();
-                                        }
+            requestAnimationFrame(animateParticles);
+        }
 
-                                        requestAnimationFrame(animateParticles);
-                                    }
+        initParticles();
+        animateParticles();
 
-                                    initParticles();
-                                    animateParticles();
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles = []; initParticles();
+        });
 
-                                    window.addEventListener('resize', () => {
-                                        canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles = []; initParticles();
-                                    });
+        // Logic
+        const footerBtn = document.getElementById('footerBtn');
+        const passwordModal = document.getElementById('passwordModal');
+        const mapOverlay = document.getElementById('mapOverlay');
+        const birthdayPopup = document.getElementById('birthdayPopup');
+        const passwordInput = document.getElementById('passwordInput');
+        const clueModal = document.getElementById('clueModal');
+        const clueTitle = document.getElementById('clueTitle');
+        const clueText = document.getElementById('clueText');
 
-                                    // Logic
-                                    const footerBtn = document.getElementById('footerBtn');
-                                    const passwordModal = document.getElementById('passwordModal');
-                                    const mapOverlay = document.getElementById('mapOverlay');
-                                    const birthdayPopup = document.getElementById('birthdayPopup');
-                                    const passwordInput = document.getElementById('passwordInput');
-                                    const clueModal = document.getElementById('clueModal');
-                                    const clueTitle = document.getElementById('clueTitle');
-                                    const clueText = document.getElementById('clueText');
+        footerBtn.addEventListener('click', () => {
+            passwordModal.style.display = 'flex';
+        });
 
-                                    footerBtn.addEventListener('click', () => {
-                                        passwordModal.style.display = 'flex';
-                                    });
+        function checkPassword() {
+            const val = passwordInput.value.trim().toLowerCase();
 
-                                    function checkPassword() {
-                                        const val = passwordInput.value.trim().toLowerCase();
+            if (val === 'dosa date') {
+                passwordModal.style.display = 'none';
 
-                                        if (val === 'dosa date') {
-                                            passwordModal.style.display = 'none';
+                confetti({
+                    particleCount: 150, spread: 70, origin: {
+                        y: 0.8
+                    }
 
-                                            confetti({
-                                                particleCount: 150, spread: 70, origin: {
-                                                    y: 0.8
-                                                }
+                    , colors: ['#9DC183', '#E6E6FA', '#ff6b6b']
+                });
 
-                                                , colors: ['#9DC183', '#E6E6FA', '#ff6b6b']
-                                            });
+                setTimeout(() => {
+                    birthdayPopup.style.display = 'flex';
+                }
 
-                                            setTimeout(() => {
-                                                birthdayPopup.style.display = 'flex';
-                                            }
+                    , 500);
+            }
 
-                                                , 500);
-                                        }
+            else {
+                const content = document.querySelector('.modal-content');
+                content.classList.add('shake');
+                setTimeout(() => content.classList.remove('shake'), 500);
+                alert("Try again, Muggle!");
+            }
+        }
 
-                                        else {
-                                            const content = document.querySelector('.modal-content');
-                                            content.classList.add('shake');
-                                            setTimeout(() => content.classList.remove('shake'), 500);
-                                            alert("Try again, Muggle!");
-                                        }
-                                    }
+        function openMap() {
+            birthdayPopup.style.display = 'none';
+            mapOverlay.style.display = 'flex';
+        }
 
-                                    function openMap() {
-                                        birthdayPopup.style.display = 'none';
-                                        mapOverlay.style.display = 'flex';
-                                    }
+        function closeMap() {
+            mapOverlay.style.display = 'none';
+        }
 
-                                    function closeMap() {
-                                        mapOverlay.style.display = 'none';
-                                    }
+        /* Clues updated with Cake, Cookies, Vanity Box */
+        const clues = {
+            1: {
+                title: "Sugary Secrets & Style",
+                text: "Something baked with love and care, <br> A vanity box for the fairest fair. <br> Cake and Cookies to make the start sweet, <br> <strong>Find them all for your first treat!</strong> 🍪🎂💄"
+            }
 
-                                    /* Clues updated with Cake, Cookies, Vanity Box */
-                                    const clues = {
-                                        1: {
-                                            title: "Sugary Secrets & Style",
-                                            text: "Something baked with love and care, <br> A vanity box for the fairest fair. <br> Cake and Cookies to make the start sweet, <br> <strong>Find them all for your first treat!</strong> 🍪🎂💄"
-                                        }
+            ,
+            2: {
+                title: "Lumos!",
+                text: "When the sun goes down... <br> Check the passenger sun-visor for a light! 💡"
+            }
 
-                                        ,
-                                        2: {
-                                            title: "Lumos!",
-                                            text: "When the sun goes down... <br> Check the passenger sun-visor for a light! 💡"
-                                        }
+            ,
+            3: {
+                title: "Mischief Managed",
+                text: "Losing your page makes you surly... <br> Look in the glove compartment! ⚡"
+            }
 
-                                        ,
-                                        3: {
-                                            title: "Mischief Managed",
-                                            text: "Losing your page makes you surly... <br> Look in the glove compartment! ⚡"
-                                        }
+            ,
+            4: {
+                title: "Herbology Class",
+                text: "It's not quite a rose... <br> Check the backseat for a bloom! 🌻"
+            }
+        }
 
-                                        ,
-                                        4: {
-                                            title: "Herbology Class",
-                                            text: "It's not quite a rose... <br> Check the backseat for a bloom! 🌻"
-                                        }
-                                    }
+            ;
 
-                                        ;
+        function showClue(id) {
+            clueTitle.innerText = clues[id].title;
+            clueText.innerHTML = clues[id].text;
+            clueModal.style.display = 'block';
+        }
 
-                                    function showClue(id) {
-                                        clueTitle.innerText = clues[id].title;
-                                        clueText.innerHTML = clues[id].text;
-                                        clueModal.style.display = 'block';
-                                    }
+        function closeClue() {
+            clueModal.style.display = 'none';
+        }
 
-                                    function closeClue() {
-                                        clueModal.style.display = 'none';
-                                    }
+        /* --- Cosmic Valentine Logic --- */
+        const cosmicModal = document.getElementById('cosmicModal');
+        const zodiacStep = document.getElementById('zodiacStep');
+        const proposalStep = document.getElementById('proposalStep');
+        const cosmicMsg = document.getElementById('cosmicMsg');
+        const noBtn = document.getElementById('noBtn');
+        const constellationCanvas = document.getElementById('constellationCanvas');
+        const loveSong = document.getElementById('loveSong');
 
-                                    /* --- Cosmic Valentine Logic --- */
-                                    const cosmicModal = document.getElementById('cosmicModal');
-                                    const zodiacStep = document.getElementById('zodiacStep');
-                                    const proposalStep = document.getElementById('proposalStep');
-                                    const cosmicMsg = document.getElementById('cosmicMsg');
-                                    const noBtn = document.getElementById('noBtn');
-                                    const constellationCanvas = document.getElementById('constellationCanvas');
-                                    const loveSong = document.getElementById('loveSong');
+        function openCosmicModal() {
+            cosmicModal.style.display = 'flex';
+            zodiacStep.style.display = 'block';
+            proposalStep.style.display = 'none';
+            cosmicMsg.innerText = '';
+        }
 
-                                    function openCosmicModal() {
-                                        cosmicModal.style.display = 'flex';
-                                        zodiacStep.style.display = 'block';
-                                        proposalStep.style.display = 'none';
-                                        cosmicMsg.innerText = '';
-                                    }
+        function closeCosmicModal() {
+            cosmicModal.style.display = 'none';
+            loveSong.pause();
+            loveSong.currentTime = 0;
+        }
 
-                                    function closeCosmicModal() {
-                                        cosmicModal.style.display = 'none';
-                                        loveSong.pause();
-                                        loveSong.currentTime = 0;
-                                    }
+        function checkCosmicMatch() {
+            const her = document.getElementById('herSign').value;
+            const his = document.getElementById('hisSign').value;
 
-                                    function checkCosmicMatch() {
-                                        const her = document.getElementById('herSign').value;
-                                        const his = document.getElementById('hisSign').value;
+            if (her === 'capricorn' && his === 'gemini') {
+                // Match!
+                zodiacStep.style.display = 'none';
+                proposalStep.style.display = 'block';
+                proposalStep.classList.remove('proposal-hidden'); // triggers animation
+                drawConstellation();
+            } else if (her && his) {
+                cosmicMsg.innerText = "The stars are confused... Try her true sign (♑) and yours (♊)!";
+            } else {
+                cosmicMsg.innerText = "Please select both signs to consult the stars.";
+            }
+        }
 
-                                        if (her === 'capricorn' && his === 'gemini') {
-                                            // Match!
-                                            zodiacStep.style.display = 'none';
-                                            proposalStep.style.display = 'block';
-                                            proposalStep.classList.remove('proposal-hidden'); // triggers animation
-                                            drawConstellation();
-                                        } else if (her && his) {
-                                            cosmicMsg.innerText = "The stars are confused... Try her true sign (♑) and yours (♊)!";
-                                        } else {
-                                            cosmicMsg.innerText = "Please select both signs to consult the stars.";
-                                        }
-                                    }
+        function runAway() {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
 
-                                    function runAway() {
-                                        const x = Math.random() * (window.innerWidth - 100);
-                                        const y = Math.random() * (window.innerHeight - 50);
-                                        noBtn.style.position = 'fixed';
-                                        noBtn.style.left = x + 'px';
-                                        noBtn.style.top = y + 'px';
-                                    }
+        function sheSaidYes() {
+            // 1. Confetti
+            var duration = 5 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 3001 };
 
-                                    function sheSaidYes() {
-                                        // 1. Confetti
-                                        var duration = 5 * 1000;
-                                        var animationEnd = Date.now() + duration;
-                                        var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 3001 };
+            var random = function (min, max) { return Math.random() * (max - min) + min; }
 
-                                        var random = function (min, max) { return Math.random() * (max - min) + min; }
+            var interval = setInterval(function () {
+                var timeLeft = animationEnd - Date.now();
 
-                                        var interval = setInterval(function () {
-                                            var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
 
-                                            if (timeLeft <= 0) {
-                                                return clearInterval(interval);
-                                            }
+                var particleCount = 50 * (timeLeft / duration);
 
-                                            var particleCount = 50 * (timeLeft / duration);
+                // since particles fall down, start a bit higher than random
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
 
-                                            // since particles fall down, start a bit higher than random
-                                            confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } }));
-                                            confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
-                                        }, 250);
+            // 2. Music
+            loveSong.play().catch(e => console.log("Audio play failed (user interaction needed likely):", e));
 
-                                        // 2. Music
-                                        loveSong.play().catch(e => console.log("Audio play failed (user interaction needed likely):", e));
+            // 3. Show Love Notes
+            document.getElementById('loveNotes').style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('loveNotes').style.opacity = '1';
+            }, 100);
 
-                                        // 3. Show Love Notes
-                                        document.getElementById('loveNotes').style.display = 'flex';
-                                        setTimeout(() => {
-                                            document.getElementById('loveNotes').style.opacity = '1';
-                                        }, 100);
+            // 4. Change Title
+            document.querySelector('.big-question').innerHTML = "I Knew It! ❤️<br><span style='font-size:2rem'>See you on Feb 14th</span>";
+            document.querySelector('.response-buttons').style.display = 'none';
+        }
 
-                                        // 4. Change Title
-                                        document.querySelector('.big-question').innerHTML = "I Knew It! ❤️<br><span style='font-size:2rem'>See you on Feb 14th</span>";
-                                        document.querySelector('.response-buttons').style.display = 'none';
-                                    }
+        function drawConstellation() {
+            const ctx = constellationCanvas.getContext('2d');
+            const w = constellationCanvas.width = constellationCanvas.parentElement.offsetWidth;
+            const h = constellationCanvas.height = 200;
+            constellationCanvas.style.display = 'block';
 
-                                    function drawConstellation() {
-                                        const ctx = constellationCanvas.getContext('2d');
-                                        const w = constellationCanvas.width = constellationCanvas.parentElement.offsetWidth;
-                                        const h = constellationCanvas.height = 200;
-                                        constellationCanvas.style.display = 'block';
+            ctx.clearRect(0, 0, w, h);
+            ctx.strokeStyle = 'white';
+            ctx.fillStyle = 'white';
+            ctx.lineWidth = 1;
 
-                                        ctx.clearRect(0, 0, w, h);
-                                        ctx.strokeStyle = 'white';
-                                        ctx.fillStyle = 'white';
-                                        ctx.lineWidth = 1;
+            // Simple "Gemini" (Left) and "Capricorn" (Right) abstract connecting
+            // Points for Gemini (Castor & Pollux theme)
+            const geminiPoints = [{ x: 50, y: 50 }, { x: 80, y: 60 }, { x: 60, y: 100 }, { x: 90, y: 110 }];
+            // Points for Capricorn (Sea Goat theme - V shapeish)
+            const capriPoints = [{ x: 300, y: 50 }, { x: 350, y: 40 }, { x: 320, y: 100 }, { x: 360, y: 120 }, { x: 320, y: 150 }];
 
-                                        // Simple "Gemini" (Left) and "Capricorn" (Right) abstract connecting
-                                        // Points for Gemini (Castor & Pollux theme)
-                                        const geminiPoints = [{ x: 50, y: 50 }, { x: 80, y: 60 }, { x: 60, y: 100 }, { x: 90, y: 110 }];
-                                        // Points for Capricorn (Sea Goat theme - V shapeish)
-                                        const capriPoints = [{ x: 300, y: 50 }, { x: 350, y: 40 }, { x: 320, y: 100 }, { x: 360, y: 120 }, { x: 320, y: 150 }];
+            // Adjust points based on width
+            const offsetX = (w - 400) / 2;
+            if (offsetX > 0) {
+                geminiPoints.forEach(p => p.x += offsetX);
+                capriPoints.forEach(p => p.x += offsetX);
+            }
 
-                                        // Adjust points based on width
-                                        const offsetX = (w - 400) / 2;
-                                        if (offsetX > 0) {
-                                            geminiPoints.forEach(p => p.x += offsetX);
-                                            capriPoints.forEach(p => p.x += offsetX);
-                                        }
+            function drawStars(points) {
+                ctx.beginPath();
+                points.forEach((p, i) => {
+                    ctx.moveTo(p.x, p.y);
+                    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+                    if (i < points.length - 1) {
+                        ctx.lineTo(points[i + 1].x, points[i + 1].y);
+                    }
+                });
+                ctx.stroke();
+                ctx.fill();
+            }
 
-                                        function drawStars(points) {
-                                            ctx.beginPath();
-                                            points.forEach((p, i) => {
-                                                ctx.moveTo(p.x, p.y);
-                                                ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-                                                if (i < points.length - 1) {
-                                                    ctx.lineTo(points[i + 1].x, points[i + 1].y);
-                                                }
-                                            });
-                                            ctx.stroke();
-                                            ctx.fill();
-                                        }
+            drawStars(geminiPoints);
+            drawStars(capriPoints);
 
-                                        drawStars(geminiPoints);
-                                        drawStars(capriPoints);
+            // Connection Line (Animated)
+            let progress = 0;
+            function animateConnection() {
+                if (progress > 1) return;
+                const start = geminiPoints[geminiPoints.length - 1];
+                const end = capriPoints[2]; // Connect to middle of Capricorn
 
-                                        // Connection Line (Animated)
-                                        let progress = 0;
-                                        function animateConnection() {
-                                            if (progress > 1) return;
-                                            const start = geminiPoints[geminiPoints.length - 1];
-                                            const end = capriPoints[2]; // Connect to middle of Capricorn
+                const curX = start.x + (end.x - start.x) * progress;
+                const curY = start.y + (end.y - start.y) * progress;
 
-                                            const curX = start.x + (end.x - start.x) * progress;
-                                            const curY = start.y + (end.y - start.y) * progress;
+                ctx.beginPath();
+                ctx.moveTo(start.x, start.y);
+                ctx.lineTo(curX, curY);
+                ctx.strokeStyle = `rgba(255, 107, 107, ${progress})`; // Fade in red string
+                ctx.lineWidth = 2;
+                ctx.stroke();
 
-                                            ctx.beginPath();
-                                            ctx.moveTo(start.x, start.y);
-                                            ctx.lineTo(curX, curY);
-                                            ctx.strokeStyle = `rgba(255, 107, 107, ${progress})`; // Fade in red string
-                                            ctx.lineWidth = 2;
-                                            ctx.stroke();
+                progress += 0.01;
+                requestAnimationFrame(animateConnection);
+            }
+            animateConnection();
+        }
 
-                                            progress += 0.01;
-                                            requestAnimationFrame(animateConnection);
-                                        }
-                                        animateConnection();
-                                    }
-
-                                </script>
+    </script>
 </body>
 
 </html>
