@@ -1655,72 +1655,82 @@
             const particleBaseColor = isNightMode ? '173, 216, 230' : '212, 175, 55'; // Blue vs Gold
 
             /* --- 3D Infinite Hallway Logic --- */
-            const worldContainer = document.querySelector('.world-container');
-            const sections = Array.from(document.querySelectorAll('section, .footer'));
+            // Wait for DOM to be fully ready
+            setTimeout(() => {
+                const worldContainer = document.querySelector('.world-container');
+                const sections = Array.from(document.querySelectorAll('section, .footer'));
 
-            let currentScroll = 0;
-            let targetScroll = 0;
+                if (!worldContainer) {
+                    console.error("World Container not found!");
+                    return;
+                }
 
-            // Custom Scroll Handling
-            window.addEventListener('scroll', () => {
-                // We use native scroll for input, but map it to Z
-                targetScroll = window.scrollY;
-            });
+                let currentScroll = 0;
+                let targetScroll = 0;
 
-            // Extend body height to allow scrolling
-            // Total depth (8000px) / (arbitrary divisor for speed) + viewport
-            document.body.style.height = '12000px';
-
-            function animateWorld() {
-                // Smooth Scroll (Lerp)
-                currentScroll += (targetScroll - currentScroll) * 0.05;
-
-                // Move World: We move the container TOWARDS the camera (positive Z) as we scroll down
-                worldContainer.style.transform = `translateZ(${currentScroll}px)`;
-
-                // Depth of Field & Fade Logic
-                sections.forEach(section => {
-                    // Get computed Z of the section (static value we set in CSS)
-                    const style = window.getComputedStyle(section);
-                    const matrix = new WebKitCSSMatrix(style.transform);
-                    const sectionZ = matrix.m43; // Z component
-
-                    // Calculate distance from "Camera" (Camera is at Z=0 + currentScroll)
-                    // Actually, Camera is at 0, World moves.
-                    // Distance = SectionZ + currentScroll
-                    const distance = sectionZ + currentScroll;
-
-                    // Logic:
-                    // If distance is near 0: Focused, Opacity 1
-                    // If distance is > 1000 (Behind camera): Fade out
-                    // If distance is < -2000 (Far away): Fade/Blur
-
-                    let opacity = 1;
-                    let blur = 0;
-
-                    if (distance > 500) {
-                        // Passed the camera
-                        opacity = 0;
-                    } else if (distance < -3000) {
-                        // Far away
-                        opacity = 0;
-                    } else if (distance < -1500) {
-                        // Approaching
-                        opacity = (distance + 3000) / 1500; // 0 to 1
-                        blur = 10 * (1 - opacity);
-                    }
-
-                    section.style.opacity = opacity;
-                    section.style.filter = `blur(${blur}px)`;
-
-                    // Prevent interaction with hidden/far elements
-                    section.style.pointerEvents = (opacity > 0.5 && distance < 200) ? 'auto' : 'none';
+                // Custom Scroll Handling
+                window.addEventListener('scroll', () => {
+                    // We use native scroll for input, but map it to Z
+                    targetScroll = window.scrollY;
                 });
 
-                requestAnimationFrame(animateWorld);
-            }
+                // Extend body height to allow scrolling manually
+                // Total depth (8000px) / (arbitrary divisor for speed) + viewport
+                document.body.style.height = '12000px';
+                document.body.style.overflowY = 'scroll'; // Force scrollbar
 
-            animateWorld();
+                function animateWorld() {
+                    // Smooth Scroll (Lerp)
+                    currentScroll += (targetScroll - currentScroll) * 0.05;
+
+                    // Move World: We move the container TOWARDS the camera (positive Z) as we scroll down
+                    worldContainer.style.transform = `translateZ(${currentScroll}px)`;
+
+                    // Depth of Field & Fade Logic
+                    sections.forEach(section => {
+                        // Get computed Z of the section (static value we set in CSS)
+                        const style = window.getComputedStyle(section);
+                        const matrix = new WebKitCSSMatrix(style.transform);
+                        const sectionZ = matrix.m43; // Z component
+
+                        // Calculate distance from "Camera" (Camera is at Z=0 + currentScroll)
+                        // actually Camera is at 0, World moves.
+                        // Distance = SectionZ + currentScroll
+                        const distance = sectionZ + currentScroll;
+
+                        // Logic:
+                        // If distance is near 0: Focused, Opacity 1
+                        // If distance is > 1000 (Behind camera): Fade out
+                        // If distance is < -2000 (Far away): Fade/Blur
+
+                        let opacity = 1;
+                        let blur = 0;
+
+                        if (distance > 500) {
+                            // Passed the camera
+                            opacity = 0;
+                        } else if (distance < -3000) {
+                            // Far away
+                            opacity = 0;
+                        } else if (distance < -1500) {
+                            // Approaching
+                            opacity = (distance + 3000) / 1500; // 0 to 1
+                            blur = 10 * (1 - opacity);
+                        }
+
+                        section.style.opacity = opacity;
+                        section.style.filter = `blur(${blur}px)`;
+
+                        // Prevent interaction with hidden/far elements
+                        section.style.pointerEvents = (opacity > 0.5 && distance < 200) ? 'auto' : 'none';
+                    });
+
+                    requestAnimationFrame(animateWorld);
+                }
+
+                animateWorld();
+            }, 100); // Small delay to ensure rendering
+
 
             class Particle {
                 constructor() {
@@ -1745,6 +1755,7 @@
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                     ctx.fill();
+
                 }
             }
 
