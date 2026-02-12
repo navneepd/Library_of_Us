@@ -883,6 +883,220 @@
                 transform: rotate(360deg);
             }
         }
+
+        /* Long Distance Features CSS */
+        .ld-features-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .ld-feature-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .full-width {
+            flex-basis: 100%;
+        }
+
+        /* Countdown */
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .countdown-timer div {
+            display: flex;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+            min-width: 60px;
+        }
+
+        .countdown-timer span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .countdown-timer small {
+            font-size: 0.8rem;
+            color: #ddd;
+        }
+
+        /* Virtual Touch */
+        .fingerprint-scanner {
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.5);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .fingerprint-scanner:active {
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+            transform: scale(0.95);
+        }
+
+        .scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #ff6b6b;
+            animation: scan 1.5s linear infinite;
+            display: none;
+        }
+
+        .fingerprint-scanner:active .scanner-line {
+            display: block;
+        }
+
+        .heart-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: #ff6b6b;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .fingerprint-scanner:active .heart-pulse {
+            animation: pulseHeart 1s infinite;
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0;
+            }
+
+            100% {
+                top: 100%;
+            }
+        }
+
+        @keyframes pulseHeart {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+        }
+
+        /* Open When Letters */
+        .letters-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .envelope {
+            width: 100px;
+            height: 70px;
+            background: #f0f0f0;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .envelope:hover {
+            transform: translateY(-5px);
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-top: 35px solid #ddd;
+            /* Flap */
+            transform-origin: top;
+            transition: transform 0.4s;
+            z-index: 2;
+        }
+
+        .envelope:hover::before {
+            transform: rotateX(180deg);
+        }
+
+        .envelope::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 50px solid #e0e0e0;
+            border-right: 50px solid #e0e0e0;
+            border-bottom: 35px solid #ccc;
+            z-index: 1;
+        }
+
+        .letter-text {
+            position: absolute;
+            bottom: -25px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: white;
+        }
+
+        .paper-texture {
+            background-color: #fdfbf7;
+            background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
+            color: #333;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #555;
+        }
     </style>
 </head>
 
@@ -1137,9 +1351,67 @@
                 <div class="card-glow"></div>
             </div>
         </div>
+
+        <!-- Long Distance Features -->
+        <div class="ld-features-container" style="position: relative; z-index: 2; margin-top: 60px;">
+
+            <!-- Countdown -->
+            <div class="ld-feature-box" data-aos="fade-up">
+                <h3>Countdown to Us</h3>
+                <div id="countdown" class="countdown-timer">
+                    <div><span id="days">00</span><small>Days</small></div>
+                    <div><span id="hours">00</span><small>Hours</small></div>
+                    <div><span id="minutes">00</span><small>Mins</small></div>
+                    <div><span id="seconds">00</span><small>Secs</small></div>
+                </div>
+            </div>
+
+            <!-- Virtual Touch -->
+            <div class="ld-feature-box" data-aos="fade-up" data-aos-delay="200">
+                <h3>Virtual Touch</h3>
+                <div class="fingerprint-scanner" onmousedown="startTouch()" onmouseup="endTouch()"
+                    ontouchstart="startTouch()" ontouchend="endTouch()">
+                    <i class="fas fa-fingerprint"></i>
+                    <div class="scanner-line"></div>
+                    <div class="heart-pulse"><i class="fas fa-heart"></i></div>
+                </div>
+                <p>Hold your finger here to feel my heartbeat</p>
+            </div>
+
+            <!-- Open When Letters -->
+            <div class="ld-feature-box full-width" data-aos="fade-up" data-aos-delay="400">
+                <h3>Open When...</h3>
+                <div class="letters-grid">
+                    <div class="envelope" onclick="openLetter('miss')">
+                        <div class="flap"></div>
+                        <div class="body"></div>
+                        <div class="letter-text">You Miss Me</div>
+                    </div>
+                    <div class="envelope" onclick="openLetter('sad')">
+                        <div class="flap"></div>
+                        <div class="body"></div>
+                        <div class="letter-text">You're Sad</div>
+                    </div>
+                    <div class="envelope" onclick="openLetter('happy')">
+                        <div class="flap"></div>
+                        <div class="body"></div>
+                        <div class="letter-text">You're Happy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section><!-- Footer -->
     <div class="footer"><button id="footerBtn" class="marauder-btn">I solemnly swear that I am up to no good</button>
     </div><!-- Password Modal -->
+
+    <!-- Letter Modal -->
+    <div id="letterModal" class="modal">
+        <div class="modal-content paper-texture">
+            <span class="close-modal" onclick="closeLetter()">&times;</span>
+            <h2 id="letterTitle" style="font-family: 'Allura', cursive; color: #5D4037;">Title</h2>
+            <p id="letterBody" style="font-family: 'Merriweather', serif; color: #333; line-height: 1.6;"></p>
+        </div>
+    </div>
     <div id="passwordModal" class="modal">
         <div class="modal-content">
             <h2 style="font-family: 'Cinzel'; margin-bottom: 20px;">Reveal the Secrets</h2>
@@ -1555,7 +1827,91 @@
                 progress += 0.01;
                 requestAnimationFrame(animateConnection);
             }
+
+
             animateConnection();
+        }
+
+        /* --- Long Distance Extensions --- */
+
+        // 1. Countdown Timer
+        const countdownDate = new Date("February 14, 2027 00:00:00").getTime(); // Placeholder date
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "HAPPY REUNION! ❤️";
+            }
+        }
+        setInterval(updateCountdown, 1000);
+
+        // 2. Virtual Touch
+        let touchTimer;
+        const scanner = document.querySelector('.fingerprint-scanner');
+
+        function startTouch() {
+            scanner.style.transform = "scale(0.95)";
+            if (navigator.vibrate) navigator.vibrate(50); // Haptic feedback
+
+            touchTimer = setTimeout(() => {
+                // Success state after holding
+                scanner.innerHTML = '<i class="fas fa-heart" style="color: #ff6b6b; animation: pulseHeart 0.5s infinite;"></i>';
+                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                alert("I can feel you too... ❤️");
+            }, 2000);
+        }
+
+        function endTouch() {
+            clearTimeout(touchTimer);
+            scanner.style.transform = "scale(1)";
+            // Reset icon if not completed
+            setTimeout(() => {
+                if (!scanner.innerHTML.includes('fa-fingerprint')) {
+                    scanner.innerHTML = '<i class="fas fa-fingerprint"></i><div class="scanner-line"></div><div class="heart-pulse"><i class="fas fa-heart"></i></div>';
+                }
+            }, 3000);
+        }
+
+        // 3. Open When Letters
+        const letters = {
+            'miss': {
+                title: "Open When You Miss Me",
+                body: "Close your eyes. Take a deep breath. <br><br> I am right there with you. In the wind that brushes your cheek, in the warmth of the sun, and in the beat of your own heart. <br><br> Distance is just a test to see how far love can travel. And ours? It's traveling at light speed. I love you more than miles can measure."
+            },
+            'sad': {
+                title: "Open When You're Sad",
+                body: "I hate that I can't be there to hug you right now. But imagine my arms wrapped tight around you. <br><br> You are stronger than whatever is making you sad. You have survived 100% of your bad days. <br><br> Call me. I'm here. Always."
+            },
+            'happy': {
+                title: "Open When You're Happy",
+                body: "YAY! Look at that beautiful smile! <br><br> I wish I could capture this moment. Seeing you happy is my favorite thing in the world. <br><br> Celebration is pending when we meet! For now, do a little dance for me! 💃"
+            }
+        };
+
+        const letterModal = document.getElementById('letterModal');
+        const letterTitle = document.getElementById('letterTitle');
+        const letterBody = document.getElementById('letterBody');
+
+        function openLetter(type) {
+            letterTitle.innerText = letters[type].title;
+            letterBody.innerHTML = letters[type].body;
+            letterModal.style.display = 'flex';
+        }
+
+        function closeLetter() {
+            letterModal.style.display = 'none';
         }
 
     </script>
