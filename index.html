@@ -1133,7 +1133,8 @@
             align-items: center;
             backface-visibility: hidden;
             /* Performance */
-            will-change: transform, opacity, filter;
+            will-change: transform, opacity;
+            /* GPU acceleration - removed filter for better performance */
         }
 
         /* Specific Z-Positions (Manual Staging) */
@@ -1657,7 +1658,7 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             let particles = [];
-            const particleCount = 50;
+            const particleCount = 30; // Reduced from 50 for better performance
 
             // Time-Aware Theme
             const currentHour = new Date().getHours();
@@ -1678,11 +1679,30 @@
                 let currentScroll = 0;
                 let targetScroll = 0;
 
-                // Custom Scroll Handling
-                window.addEventListener('scroll', () => {
-                    // We use native scroll for input, but map it to Z
-                    targetScroll = window.scrollY;
+                // ⚡ MAJOR OPTIMIZATION: Cache section Z positions (calculated ONCE, not 60x per second!)
+                const sectionData = sections.map(section => {
+                    const style = window.getComputedStyle(section);
+                    let sectionZ = 0;
+
+                    try {
+                        const matrix = new DOMMatrix(style.transform);
+                        sectionZ = matrix.m43;
+                    } catch (e) {
+                        const transformValue = style.transform;
+                        if (transformValue && transformValue !== 'none') {
+                            const match = transformValue.match(/translateZ\(([^)]+)\)/);
+                            if (match) {
+                                sectionZ = parseFloat(match[1]);
+                            }
+                        }
+                    }
+                    return { element: section, zPosition: sectionZ };
                 });
+
+                // Custom Scroll Handling (⚡ Passive for better performance)
+                window.addEventListener('scroll', () => {
+                    targetScroll = window.scrollY;
+                }, { passive: true });
 
                 // Extend body height to allow scrolling manually
                 // Total depth (8000px) / (arbitrary divisor for speed) + viewport
@@ -1728,7 +1748,6 @@
                         // If distance is < -2000 (Far away): Fade/Blur
 
                         let opacity = 1;
-                        let blur = 0;
 
                         if (distance > 500) {
                             // Passed the camera
@@ -1739,11 +1758,10 @@
                         } else if (distance < -1500) {
                             // Approaching
                             opacity = (distance + 3000) / 1500; // 0 to 1
-                            blur = 10 * (1 - opacity);
                         }
 
                         section.style.opacity = opacity;
-                        section.style.filter = `blur(${blur}px)`;
+                        // ⚡ REMOVED BLUR FILTER - too expensive for GPU, causes major lag
 
                         // Prevent interaction with hidden/far elements
                         section.style.pointerEvents = (opacity > 0.5 && distance < 200) ? 'auto' : 'none';
