@@ -68,13 +68,15 @@
             line-height: 1.2;
         }
 
-        /* Masonry Layout */
+        /* RESPONSIVE GRID LAYOUT FOR POLAROIDS */
         .polaroid-container {
-            column-count: 3;
-            column-gap: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
             padding: 2rem;
             max-width: 1200px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .polaroid {
@@ -85,10 +87,9 @@
             text-align: center;
             position: relative;
             transform: rotate(var(--rotation));
-            margin-bottom: 3rem;
-            display: inline-block;
-            break-inside: avoid;
-            transform-style: preserve-3d;
+            margin-bottom: 1rem;
+            z-index: 10;
+            /* Ensure clickable */
         }
 
         .polaroid img,
@@ -151,12 +152,16 @@
             color: #666;
         }
 
-        /* Volume 2 */
+        /* Volume 2 - Valentine Section */
         .volume-2 {
             background-color: var(--sage-green);
             color: white;
             text-align: center;
-            padding: 8rem 1rem;
+            padding: 100px 20px;
+            min-height: 100vh;
+            /* Ensure visibility */
+            position: relative;
+            z-index: 1;
         }
 
         .volume-2 h2 {
@@ -1098,103 +1103,11 @@
             color: #555;
         }
 
-        /* Infinite Hallway 3D CSS */
-        .world-container-wrapper {
-            /* Note: body overflow is handled by 3D scroll script */
-            background-color: #1a1a1a;
-            perspective: 1000px;
-            /* Depth perception */
-        }
 
-        .world-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            will-change: transform;
-            transition: transform 0.1s linear;
-            /* Smooth scroll dampening */
-        }
 
-        /* Generic Section Class for 3D positioning */
-        section,
-        .footer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            /* Full viewport height */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            backface-visibility: hidden;
-            /* Performance */
-            will-change: transform, opacity;
-            /* GPU acceleration - removed filter for better performance */
-        }
 
-        /* Specific Z-Positions (Manual Staging) */
-        .hero {
-            transform: translateZ(0px);
-        }
 
-        /* Chapter 1 */
-        section:nth-of-type(2) {
-            transform: translateZ(-1000px);
-        }
 
-        /* Chapter 2 */
-        section:nth-of-type(3) {
-            transform: translateZ(-2000px);
-        }
-
-        /* Chapter 3 */
-        section:nth-of-type(4) {
-            transform: translateZ(-3000px);
-        }
-
-        /* Chapter 4 */
-        section:nth-of-type(5) {
-            transform: translateZ(-4000px);
-        }
-
-        /* Chapter 5 */
-        section:nth-of-type(6) {
-            transform: translateZ(-5000px);
-        }
-
-        /* Chapter 6 (Timeline) */
-        section:nth-of-type(7) {
-            transform: translateZ(-6000px);
-        }
-
-        /* Volume 2 */
-        .volume-2 {
-            transform: translateZ(-7000px) !important;
-            height: auto !important;
-            /* Allow growth */
-            min-height: 100vh;
-            justify-content: flex-start;
-            /* Start from top */
-            padding-top: 100px;
-            padding-bottom: 100px;
-            overflow: visible !important;
-            /* Don't clip */
-            position: relative !important;
-            /* Ensure proper stacking */
-        }
-
-        /* Footer */
-        .footer {
-            transform: translateZ(-8000px);
-            height: auto;
-            bottom: auto;
-            top: 50%;
-        }
 
         /* Lumos Mode */
         .lumos-mode {
@@ -1206,488 +1119,572 @@
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.6) !important;
             border-color: #fff !important;
         }
+
+        /* ========== MOBILE RESPONSIVENESS ========== */
+        @media (max-width: 768px) {
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            body {
+                font-size: 16px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .polaroid-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+                gap: 1.5rem;
+            }
+
+            section {
+                padding: 60px 15px;
+            }
+
+            .volume-2 {
+                padding: 60px 15px;
+            }
+
+            .cosmic-card,
+            .letter-card {
+                width: 90%;
+                max-width: 350px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 
 <body><canvas id="particleCanvas"></canvas>
-    <!-- 3D World Wrapper -->
-    <div class="world-container">
-        <!-- Hero -->
-        <section class="hero" data-aos="fade-in" data-aos-duration="2000">
-            <h1>The Library of Us</h1>
-            <h2>Volume 1: From Class 9 to Forever</h2>
-        </section><!-- Chapter 1: Mischief Managed -->
-        <section>
-            <div class="chapter-header" data-aos="fade-up">
-                <h2>Chapter 1: Mischief Managed</h2>
-                <p>School Days</p>
+    <!-- Standard Vertical Scroll Layout -->
+    <!-- Hero -->
+    <section class="hero" data-aos="fade-in" data-aos-duration="2000">
+        <h1>The Library of Us</h1>
+        <h2>Volume 1: From Class 9 to Forever</h2>
+    </section><!-- Chapter 1: Mischief Managed -->
+    <section>
+        <div class="chapter-header" data-aos="fade-up">
+            <h2>Chapter 1: Mischief Managed</h2>
+            <p>School Days</p>
+        </div>
+        <div class="polaroid-container">
+            <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/school.jpg">
+                <div class="handwritten">School</div>
             </div>
-            <div class="polaroid-container">
-                <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/school.jpg">
-                    <div class="handwritten">School</div>
-                </div>
-                <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/in_school_2.jpg">
-                    <div class="handwritten">Recess</div>
-                </div>
-                <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/Signature_pose1.jpg">
-                    <div class="handwritten">Signature Pose</div>
-                </div>
-                <div class="polaroid" style="--rotation: 2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/Farewell.JPG">
-                    <div class="handwritten">Farewell</div>
-                </div>
-                <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/Been%20their%20since%20first%20eyeliner.jpg">
-                    <div class="handwritten">Since First Eyeliner</div>
-                </div>
+            <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/in_school_2.jpg">
+                <div class="handwritten">Recess</div>
             </div>
-        </section><!-- Chapter 2: Connection in Chaos -->
-        <section class="warm-sunset">
-            <div class="chapter-header" data-aos="fade-up">
-                <h2>Chapter 2: Connection in Chaos</h2>
-                <p>Covid / Long Distance</p>
+            <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/Signature_pose1.jpg">
+                <div class="handwritten">Signature Pose</div>
             </div>
-            <div class="polaroid-container">
-                <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/classes-Duringcovid.jpg">
-                    <div class="handwritten">Online Classes</div>
-                </div>
-                <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/covid_farewell.jpg">
-                    <div class="handwritten">Farewell (Again)</div>
-                </div>
-                <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/covid%20_heart.jpg">
-                    <div class="handwritten">Heart <3< /div>
-                    </div>
-                </div>
-        </section><!-- Chapter 3: The Adventure Log -->
-        <section>
-            <div class="chapter-header" data-aos="fade-up">
-                <h2>Chapter 3: The Adventure Log</h2>
-                <p>Trips & Travels</p>
+            <div class="polaroid" style="--rotation: 2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/Farewell.JPG">
+                <div class="handwritten">Farewell</div>
             </div>
-            <div class="polaroid-container">
-                <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/Goa%20wale%20beach%20me%20.JPG">
-                    <div class="handwritten">Goa Beach</div>
-                </div>
-                <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/Most%20visited%20cafe.JPG">
-                    <div class="handwritten">Most Visited Cafe</div>
-                </div>
-                <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/Night%20We%20held%20.JPG">
-                    <div class="handwritten">Night We Held</div>
-                </div>
-                <div class="polaroid" style="--rotation: 2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/on_hike.jpg">
-                    <div class="handwritten">On Hike</div>
-                </div>
-                <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/us_sky.jpg">
-                    <div class="handwritten">Us & Sky</div>
-                </div>
-                <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/weed_trip.jpg">
-                    <div class="handwritten">Trip</div>
-                </div>
-            </div>
-        </section><!-- Chapter 4: Smells Like Strawberries -->
-        <section>
-            <div class="chapter-header" data-aos="fade-up">
-                <h2>Chapter 4: Smells Like Strawberries</h2>
-                <p>Romance</p>
-            </div>
-            <div class="polaroid-container">
-                <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/spotify.jpg" style="object-fit:contain;">
-                    <div class="handwritten">Our Playlist</div>
-                </div>
-                <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/Dip%20kiss.jpg">
-                    <div class="handwritten">Dip Kiss</div>
-                </div>
-                <div class="polaroid" style="--rotation: 2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/bad%20jacket%20kiss.jpg">
-                    <div class="handwritten">Bad Jacket Kiss</div>
-                </div>
-                <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/love_birds.jpg">
-                    <div class="handwritten">Love Birds</div>
-                </div>
-                <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/necklace.jpg">
-                    <div class="handwritten">Necklace</div>
-                </div>
-                <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/agressive-hugsy.JPG">
-                    <div class="handwritten">Aggressive Hug</div>
-                </div>
-            </div>
-        </section><!-- Chapter 5: My Favorite Version of You -->
-        <section>
-            <div class="chapter-header" data-aos="fade-up">
-                <h2>Chapter 5: My Favorite Version of You</h2>
-                <p>Silly Moments</p>
-            </div>
-            <div class="polaroid-container">
-                <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><video
-                        src="Images/dance.mp4" controls></video>
-                    <div class="handwritten">Dancing</div>
-                </div>
-                <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/dumb-cutie.JPG">
-                    <div class="handwritten">Dumb Cutie</div>
-                </div>
-                <div class="polaroid" style="--rotation: 2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/nose_thing.jpg">
-                    <div class="handwritten">Nose Thing</div>
-                </div>
-                <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/Dumb_face_BF.jpg">
-                    <div class="handwritten">Dumb Face BF</div>
-                </div>
-                <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/cutie_face_GF.jpg">
-                    <div class="handwritten">Cutie Lil GF</div>
-                </div>
-                <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/Lil-bf.jpg">
-                    <div class="handwritten">Lil BF</div>
-                </div>
-                <div class="polaroid" style="--rotation: 2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/Lil-gf.jpg">
-                    <div class="handwritten">Lil GF</div>
-                </div>
-                <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/Rajput%20Khudi%20and%20Dumb%20Das.jpg">
-                    <div class="handwritten">Rajput Khudi & Dumb Das</div>
-                </div>
-                <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/sleepy-head.jpg">
-                    <div class="handwritten">Sleepy Head</div>
-                </div>
-                <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
-                        src="Images/tired.jpg">
-                    <div class="handwritten">Tired</div>
-                </div>
-            </div>
-        </section><!-- Chapter 6: Through the Years (Timeline) -->
-        <section>
-            <div class="chapter-header" data-aos="fade-up">
-                <h2>Chapter 6: Through the Years</h2>
-                <p>Our Timeline due for Update (2018 - 2026)</p>
-            </div>
-            <div class="timeline"><!-- 2018 -->
-                <div class="container-tl left" data-aos="fade-right">
-                    <div class="content-tl">
-                        <h2>2018</h2><img src="Images/2018.JPG"
-                            onerror="this.src='https://placehold.co/400x300?text=2018';">
-                        <div class="handwritten">The Beginning</div>
-                    </div>
-                </div><!-- 2019 -->
-                <div class="container-tl right" data-aos="fade-left">
-                    <div class="content-tl">
-                        <h2>2019</h2><img src="Images/2019.JPG"
-                            onerror="this.src='https://placehold.co/400x300?text=2019';">
-                        <div class="handwritten">Finding Us</div>
-                    </div>
-                </div><!-- 2020 -->
-                <div class="container-tl left" data-aos="fade-right">
-                    <div class="content-tl">
-                        <h2>2020</h2><img src="Images/2020.jpg"
-                            onerror="this.src='https://placehold.co/400x300?text=2020';">
-                        <div class="handwritten">Surviving Chaos</div>
-                    </div>
-                </div><!-- 2021 -->
-                <div class="container-tl right" data-aos="fade-left">
-                    <div class="content-tl">
-                        <h2>2021</h2><img src="Images/2021.jpg"
-                            onerror="this.src='https://placehold.co/400x300?text=2021';">
-                        <div class="handwritten">Growing Stronger</div>
-                    </div>
-                </div><!-- 2022 -->
-                <div class="container-tl left" data-aos="fade-right">
-                    <div class="content-tl">
-                        <h2>2022</h2><img src="Images/2022.JPG"
-                            onerror="this.src='https://placehold.co/400x300?text=2022';">
-                        <div class="handwritten">Adventures</div>
-                    </div>
-                </div><!-- 2023 -->
-                <div class="container-tl right" data-aos="fade-left">
-                    <div class="content-tl">
-                        <h2>2023</h2><img src="Images/2023.JPG"
-                            onerror="this.src='https://placehold.co/400x300?text=2023';">
-                        <div class="handwritten">Building Dreams</div>
-                    </div>
-                </div><!-- 2024 -->
-                <div class="container-tl left" data-aos="fade-right">
-                    <div class="content-tl">
-                        <h2>2024</h2><img src="Images/2024.JPG"
-                            onerror="this.src='https://placehold.co/400x300?text=2024';">
-                        <div class="handwritten">Still Crazy</div>
-                    </div>
-                </div><!-- 2025 -->
-                <div class="container-tl right" data-aos="fade-left">
-                    <div class="content-tl">
-                        <h2>2025</h2><img src="Images/2025.JPG"
-                            onerror="this.src='https://placehold.co/400x300?text=2025';">
-                        <div class="handwritten">Future Memories</div>
-                    </div>
-                </div><!-- 2026 -->
-                <div class="container-tl left" data-aos="fade-right">
-                    <div class="content-tl">
-                        <h2>2026</h2><img src="https://placehold.co/400x300?text=Coming+Soon" alt="2026">
-                        <div class="handwritten">Forever & Always</div>
-                    </div>
-                </div>
-            </div>
-        </section><!-- Volume 2 -->
-        <section class="volume-2" data-aos="fade-in" style="position: relative; overflow: hidden;">
-            <!-- Background animation for volume 2 -->
-            <div class="stars" style="opacity: 0.5;"></div>
-
-            <h2 style="position: relative; z-index: 2;">Volume 2: The Long Distance Edition</h2>
-
-            <div class="cosmic-trigger-container" style="margin-top: 40px; position: relative; z-index: 2;">
-                <div class="cosmic-card" onclick="openCosmicModal()">
-                    <div class="card-content">
-                        <span class="card-icon">💌</span>
-                        <h3>A Message Across the Miles</h3>
-                        <p>Tap to Open</p>
-                    </div>
-                    <div class="card-glow"></div>
-                </div>
-            </div>
-
-            <!-- Long Distance Features -->
-            <div class="ld-features-container" style="position: relative; z-index: 2; margin-top: 60px;">
-
-                <!-- Countdown -->
-                <div class="ld-feature-box" data-aos="fade-up">
-                    <h3>Countdown to Us</h3>
-                    <div id="countdown" class="countdown-timer">
-                        <div><span id="days">00</span><small>Days</small></div>
-                        <div><span id="hours">00</span><small>Hours</small></div>
-                        <div><span id="minutes">00</span><small>Mins</small></div>
-                        <div><span id="seconds">00</span><small>Secs</small></div>
-                    </div>
-                </div>
-
-                <!-- Virtual Touch -->
-                <div class="ld-feature-box" data-aos="fade-up" data-aos-delay="200">
-                    <h3>Virtual Touch</h3>
-                    <div class="fingerprint-scanner" onmousedown="startTouch()" onmouseup="endTouch()"
-                        ontouchstart="startTouch()" ontouchend="endTouch()">
-                        <i class="fas fa-fingerprint"></i>
-                        <div class="scanner-line"></div>
-                        <div class="heart-pulse"><i class="fas fa-heart"></i></div>
-                    </div>
-                    <p>Hold your finger here to feel my heartbeat</p>
-                </div>
-
-                <!-- Open When Letters -->
-                <div class="ld-feature-box full-width" data-aos="fade-up" data-aos-delay="400">
-                    <h3>Open When...</h3>
-                    <div class="letters-grid">
-                        <div class="envelope" onclick="openLetter('miss')">
-                            <div class="flap"></div>
-                            <div class="body"></div>
-                            <div class="letter-text">You Miss Me</div>
-                        </div>
-                        <div class="envelope" onclick="openLetter('sad')">
-                            <div class="flap"></div>
-                            <div class="body"></div>
-                            <div class="letter-text">You're Sad</div>
-                        </div>
-                        <div class="envelope" onclick="openLetter('happy')">
-                            <div class="flap"></div>
-                            <div class="body"></div>
-                            <div class="letter-text">You're Happy</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section><!-- Footer -->
-        <div class="footer"><button id="footerBtn" class="marauder-btn">I solemnly swear that I am up to no
-                good</button>
-        </div><!-- End World Container -->
-        <!-- Password Modal -->
-
-        <!-- Letter Modal -->
-        <div id="letterModal" class="modal">
-            <div class="modal-content paper-texture">
-                <span class="close-modal" onclick="closeLetter()">&times;</span>
-                <h2 id="letterTitle" style="font-family: 'Allura', cursive; color: #5D4037;">Title</h2>
-                <p id="letterBody" style="font-family: 'Merriweather', serif; color: #333; line-height: 1.6;"></p>
+            <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/Been%20their%20since%20first%20eyeliner.jpg">
+                <div class="handwritten">Since First Eyeliner</div>
             </div>
         </div>
-        <div id="passwordModal" class="modal">
-            <div class="modal-content">
-                <h2 style="font-family: 'Cinzel'; margin-bottom: 20px;">Reveal the Secrets</h2>
-                <p style="font-family: 'Merriweather';">To reveal the secrets,
-                    tell me: What was our first date?</p><input type="text" id="passwordInput"
-                    placeholder="Answer here..."><button class="marauder-btn" onclick="checkPassword()">Unlock</button>
-            </div>
+    </section><!-- Chapter 2: Connection in Chaos -->
+    <section class="warm-sunset">
+        <div class="chapter-header" data-aos="fade-up">
+            <h2>Chapter 2: Connection in Chaos</h2>
+            <p>Covid / Long Distance</p>
         </div>
-        <!-- Birthday Popup -->
-        <div id="birthdayPopup" class="modal">
-            <div class="modal-content" style="border: 4px double #ff6b6b;">
-                <h2 style="font-size: 3rem; color: #ff6b6b; margin-bottom: 1rem; font-family: var(--heading-font);">
-                    Happy Birthday<br>Sweet Heart ! ❤️</h2>
-                <p style="font-size: 1.5rem; color: #555; margin-bottom: 2rem; font-family: var(--handwriting-font);">"I
-                    swear,
-                    we are upto no good..."</p>
-                <button class="marauder-btn" onclick="openMap()">Open the Map</button>
+        <div class="polaroid-container">
+            <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/classes-Duringcovid.jpg">
+                <div class="handwritten">Online Classes</div>
             </div>
-        </div>
-        <!-- Map Overlay -->
-        <div id="mapOverlay" class="map-overlay">
-            <div class="close-map" onclick="closeMap()">Mischief Managed_</div>
-            <h2
-                style="text-align: center; margin-bottom: 20px; font-family: 'Cinzel', serif; font-size: 2.5rem; color: #3E2723;">
-                The Marauder's Map</h2>
-
-            <div class="map-container">
-                <!-- Winding Path SVG (Extended for 4 stops) --><svg class="map-path-svg" viewBox="0 0 350 900"
-                    preserveAspectRatio="none">
-                    <path d="M 70 90 C 70 200, 280 200, 280 315 S 70 430, 70 540 S 280 650, 280 765" />
-                </svg>
-                <!-- Footprints following path -->
-                <div class="footprints"><i class="fas fa-shoe-prints"></i></div>
-                <div class="map-stop stop-1" onclick="showClue(1)"><i class="fas fa-gift"></i></div>
-                <div class="map-stop stop-2" onclick="showClue(2)"><i class="fas fa-lightbulb"></i></div>
-                <div class="map-stop stop-3" onclick="showClue(3)"><i class="fas fa-bolt"></i></div>
-                <div class="map-stop stop-4" onclick="showClue(4)"><i class="fas fa-sun"></i></div>
+            <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/covid_farewell.jpg">
+                <div class="handwritten">Farewell (Again)</div>
             </div>
-        </div>
-        <!-- Clue Modal -->
-        <div id="clueModal" class="clue-modal">
-            <h3 id="clueTitle" style="color: var(--sage-green); margin-bottom: 1rem;">Title</h3>
-            <p id="clueText"
-                style="font-size: 1.4rem; line-height: 1.4; margin-bottom: 1.5rem; font-family: var(--handwriting-font);">
-                Clue text goes here.</p><button class="marauder-btn" onclick="closeClue()">Got it</button>
-        </div>
-        <!-- Cosmic Modal -->
-        <div id="cosmicModal" class="cosmic-modal">
-            <div class="stars"></div>
-            <div class="twinkling"></div>
-            <div class="close-cosmic" onclick="closeCosmicModal()">&times;
-            </div>
-            <div class="cosmic-content" id="zodiacStep">
-                <h2 style="font-family: 'Cinzel'; margin-bottom: 20px;">The Cosmic Connection</h2>
-                <p style="font-family: 'Merriweather'; margin-bottom: 20px;">Do our stars align?</p>
-                <div class="zodiac-selector">
-                    <div class="z-group"><label>Her Sign</label><select id="herSign" class="z-select">
-                            <option value="">Select...</option>
-                            <option value="capricorn">Capricorn ♑</option>
-                            <option value="aquarius">Aquarius ♒</option>
-                            <option value="pisces">Pisces ♓</option>
-                            <option value="aries">Aries ♈</option>
-                            <option value="taurus">Taurus ♉</option>
-                            <option value="gemini">Gemini ♊</option>
-                            <!-- Add others if needed, but these are key for now -->
-                            <option value="cancer">Cancer ♋</option>
-                            <option value="leo">Leo ♌</option>
-                            <option value="virgo">Virgo ♍</option>
-                            <option value="libra">Libra ♎</option>
-                            <option value="scorpio">Scorpio ♏</option>
-                            <option value="sagittarius">Sagittarius ♐</option>
-                        </select></div>
-                    <div class="z-group"><label>His Sign</label><select id="hisSign" class="z-select">
-                            <option value="">Select...</option>
-                            <option value="gemini">Gemini ♊</option>
-                            <option value="capricorn">Capricorn ♑</option>
-                            <option value="aquarius">Aquarius ♒</option>
-                            <option value="pisces">Pisces ♓</option>
-                            <option value="aries">Aries ♈</option>
-                            <option value="taurus">Taurus ♉</option>
-                            <option value="cancer">Cancer ♋</option>
-                            <option value="leo">Leo ♌</option>
-                            <option value="virgo">Virgo ♍</option>
-                            <option value="libra">Libra ♎</option>
-                            <option value="scorpio">Scorpio ♏</option>
-                            <option value="sagittarius">Sagittarius ♐</option>
-                        </select></div>
-                </div><button class="check-stars-btn" onclick="checkCosmicMatch()">Consult the Stars
-                    ✨</button>
-                <p id="cosmicMsg" style="margin-top: 15px; color: #ff6b6b; min-height: 24px;"></p>
-            </div>
-            <div class="cosmic-content proposal-hidden" id="proposalStep">
-                <h2 style="font-family: 'Cinzel'; font-size: 1.5rem; color: #dcd0ff;">Earth meets Air...
-                </h2>
-                <p style="font-family: 'Merriweather'; font-size: 1.1rem; margin-top: 10px;">A connection
-                    written in the stars.</p><canvas id="constellationCanvas" width="400" height="200"
-                    style="width:100%; height:auto; display:none;"></canvas>
-                <div class="big-question">Will you be my Valentine?</div>
-                <div class="response-buttons">
-                    <!-- Wrapper for No button to constrain movement area if needed, or just body -->
-                    <button class="btn-yes" onclick="sheSaidYes()">YES ! ❤️</button>
-                    <div style="position: relative; width: 100px; height: 50px; display: inline-block;">
-                        <button id="noBtn" class="btn-no" onmouseover="runAway()" onclick="runAway()">No</button>
-                    </div>
+            <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/covid%20_heart.jpg">
+                <div class="handwritten">Heart <3< /div>
                 </div>
-                <div id="loveNotes" class="love-stars" style="display:none; opacity:0; transition: opacity 1s;">
-                    <div class="love-star">★<span class="note">Your Ambition inspires me</span></div>
-                    <div class="love-star">★<span class="note">You are my Rock</span></div>
-                    <div class="love-star">★<span class="note">Your Loyalty is rare</span></div>
-                    <div class="love-star">★<span class="note">Your Smile heals me</span></div>
-                    <div class="love-star">★<span class="note">Forever & Always</span></div>
+            </div>
+    </section><!-- Chapter 3: The Adventure Log -->
+    <section>
+        <div class="chapter-header" data-aos="fade-up">
+            <h2>Chapter 3: The Adventure Log</h2>
+            <p>Trips & Travels</p>
+        </div>
+        <div class="polaroid-container">
+            <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/Goa%20wale%20beach%20me%20.JPG">
+                <div class="handwritten">Goa Beach</div>
+            </div>
+            <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/Most%20visited%20cafe.JPG">
+                <div class="handwritten">Most Visited Cafe</div>
+            </div>
+            <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/Night%20We%20held%20.JPG">
+                <div class="handwritten">Night We Held</div>
+            </div>
+            <div class="polaroid" style="--rotation: 2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/on_hike.jpg">
+                <div class="handwritten">On Hike</div>
+            </div>
+            <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/us_sky.jpg">
+                <div class="handwritten">Us & Sky</div>
+            </div>
+            <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/weed_trip.jpg">
+                <div class="handwritten">Trip</div>
+            </div>
+        </div>
+    </section><!-- Chapter 4: Smells Like Strawberries -->
+    <section>
+        <div class="chapter-header" data-aos="fade-up">
+            <h2>Chapter 4: Smells Like Strawberries</h2>
+            <p>Romance</p>
+        </div>
+        <div class="polaroid-container">
+            <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/spotify.jpg" style="object-fit:contain;">
+                <div class="handwritten">Our Playlist</div>
+            </div>
+            <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/Dip%20kiss.jpg">
+                <div class="handwritten">Dip Kiss</div>
+            </div>
+            <div class="polaroid" style="--rotation: 2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/bad%20jacket%20kiss.jpg">
+                <div class="handwritten">Bad Jacket Kiss</div>
+            </div>
+            <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/love_birds.jpg">
+                <div class="handwritten">Love Birds</div>
+            </div>
+            <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/necklace.jpg">
+                <div class="handwritten">Necklace</div>
+            </div>
+            <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/agressive-hugsy.JPG">
+                <div class="handwritten">Aggressive Hug</div>
+            </div>
+        </div>
+    </section><!-- Chapter 5: My Favorite Version of You -->
+    <section>
+        <div class="chapter-header" data-aos="fade-up">
+            <h2>Chapter 5: My Favorite Version of You</h2>
+            <p>Silly Moments</p>
+        </div>
+        <div class="polaroid-container">
+            <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><video
+                    src="Images/dance.mp4" controls></video>
+                <div class="handwritten">Dancing</div>
+            </div>
+            <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/dumb-cutie.JPG">
+                <div class="handwritten">Dumb Cutie</div>
+            </div>
+            <div class="polaroid" style="--rotation: 2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/nose_thing.jpg">
+                <div class="handwritten">Nose Thing</div>
+            </div>
+            <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/Dumb_face_BF.jpg">
+                <div class="handwritten">Dumb Face BF</div>
+            </div>
+            <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/cutie_face_GF.jpg">
+                <div class="handwritten">Cutie Lil GF</div>
+            </div>
+            <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/Lil-bf.jpg">
+                <div class="handwritten">Lil BF</div>
+            </div>
+            <div class="polaroid" style="--rotation: 2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/Lil-gf.jpg">
+                <div class="handwritten">Lil GF</div>
+            </div>
+            <div class="polaroid" style="--rotation: -2deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/Rajput%20Khudi%20and%20Dumb%20Das.jpg">
+                <div class="handwritten">Rajput Khudi & Dumb Das</div>
+            </div>
+            <div class="polaroid" style="--rotation: 1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/sleepy-head.jpg">
+                <div class="handwritten">Sleepy Head</div>
+            </div>
+            <div class="polaroid" style="--rotation: -1deg;" data-aos="fade-up" data-tilt data-tilt-max="10"><img
+                    src="Images/tired.jpg">
+                <div class="handwritten">Tired</div>
+            </div>
+        </div>
+    </section><!-- Chapter 6: Through the Years (Timeline) -->
+    <section>
+        <div class="chapter-header" data-aos="fade-up">
+            <h2>Chapter 6: Through the Years</h2>
+            <p>Our Timeline due for Update (2018 - 2026)</p>
+        </div>
+        <div class="timeline"><!-- 2018 -->
+            <div class="container-tl left" data-aos="fade-right">
+                <div class="content-tl">
+                    <h2>2018</h2><img src="Images/2018.JPG"
+                        onerror="this.src='https://placehold.co/400x300?text=2018';">
+                    <div class="handwritten">The Beginning</div>
+                </div>
+            </div><!-- 2019 -->
+            <div class="container-tl right" data-aos="fade-left">
+                <div class="content-tl">
+                    <h2>2019</h2><img src="Images/2019.JPG"
+                        onerror="this.src='https://placehold.co/400x300?text=2019';">
+                    <div class="handwritten">Finding Us</div>
+                </div>
+            </div><!-- 2020 -->
+            <div class="container-tl left" data-aos="fade-right">
+                <div class="content-tl">
+                    <h2>2020</h2><img src="Images/2020.jpg"
+                        onerror="this.src='https://placehold.co/400x300?text=2020';">
+                    <div class="handwritten">Surviving Chaos</div>
+                </div>
+            </div><!-- 2021 -->
+            <div class="container-tl right" data-aos="fade-left">
+                <div class="content-tl">
+                    <h2>2021</h2><img src="Images/2021.jpg"
+                        onerror="this.src='https://placehold.co/400x300?text=2021';">
+                    <div class="handwritten">Growing Stronger</div>
+                </div>
+            </div><!-- 2022 -->
+            <div class="container-tl left" data-aos="fade-right">
+                <div class="content-tl">
+                    <h2>2022</h2><img src="Images/2022.JPG"
+                        onerror="this.src='https://placehold.co/400x300?text=2022';">
+                    <div class="handwritten">Adventures</div>
+                </div>
+            </div><!-- 2023 -->
+            <div class="container-tl right" data-aos="fade-left">
+                <div class="content-tl">
+                    <h2>2023</h2><img src="Images/2023.JPG"
+                        onerror="this.src='https://placehold.co/400x300?text=2023';">
+                    <div class="handwritten">Building Dreams</div>
+                </div>
+            </div><!-- 2024 -->
+            <div class="container-tl left" data-aos="fade-right">
+                <div class="content-tl">
+                    <h2>2024</h2><img src="Images/2024.JPG"
+                        onerror="this.src='https://placehold.co/400x300?text=2024';">
+                    <div class="handwritten">Still Crazy</div>
+                </div>
+            </div><!-- 2025 -->
+            <div class="container-tl right" data-aos="fade-left">
+                <div class="content-tl">
+                    <h2>2025</h2><img src="Images/2025.JPG"
+                        onerror="this.src='https://placehold.co/400x300?text=2025';">
+                    <div class="handwritten">Future Memories</div>
+                </div>
+            </div><!-- 2026 -->
+            <div class="container-tl left" data-aos="fade-right">
+                <div class="content-tl">
+                    <h2>2026</h2><img src="https://placehold.co/400x300?text=Coming+Soon" alt="2026">
+                    <div class="handwritten">Forever & Always</div>
                 </div>
             </div>
         </div>
-        <!-- Audio Element --><audio id="loveSong" src="Images/Ki_Je_Palu_Tumak.mp4" preload="auto"
-            onerror="this.onerror=null; this.src='https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'; alert('Could not load Images/Ki_Je_Palu_Tumak.mp4. Playing fallback.');"></audio>
-        <!-- POLDERHOLDER SONG -->
-        <!-- Scripts -->
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-        <script> // Init AOS
+    </section><!-- Volume 2 -->
+    <section class="volume-2" data-aos="fade-in" style="position: relative; overflow: hidden;">
+        <!-- Background animation for volume 2 -->
+        <div class="stars" style="opacity: 0.5;"></div>
 
-            AOS.init({
-                duration: 1500, once: true
+        <h2 style="position: relative; z-index: 2;">Volume 2: The Long Distance Edition</h2>
+
+        <div class="cosmic-trigger-container" style="margin-top: 40px; position: relative; z-index: 2;">
+            <div class="cosmic-card" onclick="openCosmicModal()">
+                <div class="card-content">
+                    <span class="card-icon">💌</span>
+                    <h3>A Message Across the Miles</h3>
+                    <p>Tap to Open</p>
+                </div>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+
+        <!-- Long Distance Features -->
+        <div class="ld-features-container" style="position: relative; z-index: 2; margin-top: 60px;">
+
+            <!-- Countdown -->
+            <div class="ld-feature-box" data-aos="fade-up">
+                <h3>Countdown to Us</h3>
+                <div id="countdown" class="countdown-timer">
+                    <div><span id="days">00</span><small>Days</small></div>
+                    <div><span id="hours">00</span><small>Hours</small></div>
+                    <div><span id="minutes">00</span><small>Mins</small></div>
+                    <div><span id="seconds">00</span><small>Secs</small></div>
+                </div>
+            </div>
+
+            <!-- Virtual Touch -->
+            <div class="ld-feature-box" data-aos="fade-up" data-aos-delay="200">
+                <h3>Virtual Touch</h3>
+                <div class="fingerprint-scanner" onmousedown="startTouch()" onmouseup="endTouch()"
+                    ontouchstart="startTouch()" ontouchend="endTouch()">
+                    <i class="fas fa-fingerprint"></i>
+                    <div class="scanner-line"></div>
+                    <div class="heart-pulse"><i class="fas fa-heart"></i></div>
+                </div>
+                <p>Hold your finger here to feel my heartbeat</p>
+            </div>
+
+            <!-- Open When Letters -->
+            <div class="ld-feature-box full-width" data-aos="fade-up" data-aos-delay="400">
+                <h3>Open When...</h3>
+                <div class="letters-grid">
+                    <div class="envelope" onclick="openLetter('miss')">
+                        <div class="flap"></div>
+                        <div class="body"></div>
+                        <div class="letter-text">You Miss Me</div>
+                    </div>
+                    <div class="envelope" onclick="openLetter('sad')">
+                        <div class="flap"></div>
+                        <div class="body"></div>
+                        <div class="letter-text">You're Sad</div>
+                    </div>
+                    <div class="envelope" onclick="openLetter('happy')">
+                        <div class="flap"></div>
+                        <div class="body"></div>
+                        <div class="letter-text">You're Happy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- Footer -->
+    <div class="footer"><button id="footerBtn" class="marauder-btn">I solemnly swear that I am up to no
+            good</button>
+    </div><!-- End World Container -->
+    <!-- Password Modal -->
+
+    <!-- Letter Modal -->
+    <div id="letterModal" class="modal">
+        <div class="modal-content paper-texture">
+            <span class="close-modal" onclick="closeLetter()">&times;</span>
+            <h2 id="letterTitle" style="font-family: 'Allura', cursive; color: #5D4037;">Title</h2>
+            <p id="letterBody" style="font-family: 'Merriweather', serif; color: #333; line-height: 1.6;"></p>
+        </div>
+    </div>
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <h2 style="font-family: 'Cinzel'; margin-bottom: 20px;">Reveal the Secrets</h2>
+            <p style="font-family: 'Merriweather';">To reveal the secrets,
+                tell me: What was our first date?</p><input type="text" id="passwordInput"
+                placeholder="Answer here..."><button class="marauder-btn" onclick="checkPassword()">Unlock</button>
+        </div>
+    </div>
+    <!-- Birthday Popup -->
+    <div id="birthdayPopup" class="modal">
+        <div class="modal-content" style="border: 4px double #ff6b6b;">
+            <h2 style="font-size: 3rem; color: #ff6b6b; margin-bottom: 1rem; font-family: var(--heading-font);">
+                Happy Birthday<br>Sweet Heart ! ❤️</h2>
+            <p style="font-size: 1.5rem; color: #555; margin-bottom: 2rem; font-family: var(--handwriting-font);">"I
+                swear,
+                we are upto no good..."</p>
+            <button class="marauder-btn" onclick="openMap()">Open the Map</button>
+        </div>
+    </div>
+    <!-- Map Overlay -->
+    <div id="mapOverlay" class="map-overlay">
+        <div class="close-map" onclick="closeMap()">Mischief Managed_</div>
+        <h2
+            style="text-align: center; margin-bottom: 20px; font-family: 'Cinzel', serif; font-size: 2.5rem; color: #3E2723;">
+            The Marauder's Map</h2>
+
+        <div class="map-container">
+            <!-- Winding Path SVG (Extended for 4 stops) --><svg class="map-path-svg" viewBox="0 0 350 900"
+                preserveAspectRatio="none">
+                <path d="M 70 90 C 70 200, 280 200, 280 315 S 70 430, 70 540 S 280 650, 280 765" />
+            </svg>
+            <!-- Footprints following path -->
+            <div class="footprints"><i class="fas fa-shoe-prints"></i></div>
+            <div class="map-stop stop-1" onclick="showClue(1)"><i class="fas fa-gift"></i></div>
+            <div class="map-stop stop-2" onclick="showClue(2)"><i class="fas fa-lightbulb"></i></div>
+            <div class="map-stop stop-3" onclick="showClue(3)"><i class="fas fa-bolt"></i></div>
+            <div class="map-stop stop-4" onclick="showClue(4)"><i class="fas fa-sun"></i></div>
+        </div>
+    </div>
+    <!-- Clue Modal -->
+    <div id="clueModal" class="clue-modal">
+        <h3 id="clueTitle" style="color: var(--sage-green); margin-bottom: 1rem;">Title</h3>
+        <p id="clueText"
+            style="font-size: 1.4rem; line-height: 1.4; margin-bottom: 1.5rem; font-family: var(--handwriting-font);">
+            Clue text goes here.</p><button class="marauder-btn" onclick="closeClue()">Got it</button>
+    </div>
+    <!-- Cosmic Modal -->
+    <div id="cosmicModal" class="cosmic-modal">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="close-cosmic" onclick="closeCosmicModal()">&times;
+        </div>
+        <div class="cosmic-content" id="zodiacStep">
+            <h2 style="font-family: 'Cinzel'; margin-bottom: 20px;">The Cosmic Connection</h2>
+            <p style="font-family: 'Merriweather'; margin-bottom: 20px;">Do our stars align?</p>
+            <div class="zodiac-selector">
+                <div class="z-group"><label>Her Sign</label><select id="herSign" class="z-select">
+                        <option value="">Select...</option>
+                        <option value="capricorn">Capricorn ♑</option>
+                        <option value="aquarius">Aquarius ♒</option>
+                        <option value="pisces">Pisces ♓</option>
+                        <option value="aries">Aries ♈</option>
+                        <option value="taurus">Taurus ♉</option>
+                        <option value="gemini">Gemini ♊</option>
+                        <!-- Add others if needed, but these are key for now -->
+                        <option value="cancer">Cancer ♋</option>
+                        <option value="leo">Leo ♌</option>
+                        <option value="virgo">Virgo ♍</option>
+                        <option value="libra">Libra ♎</option>
+                        <option value="scorpio">Scorpio ♏</option>
+                        <option value="sagittarius">Sagittarius ♐</option>
+                    </select></div>
+                <div class="z-group"><label>His Sign</label><select id="hisSign" class="z-select">
+                        <option value="">Select...</option>
+                        <option value="gemini">Gemini ♊</option>
+                        <option value="capricorn">Capricorn ♑</option>
+                        <option value="aquarius">Aquarius ♒</option>
+                        <option value="pisces">Pisces ♓</option>
+                        <option value="aries">Aries ♈</option>
+                        <option value="taurus">Taurus ♉</option>
+                        <option value="cancer">Cancer ♋</option>
+                        <option value="leo">Leo ♌</option>
+                        <option value="virgo">Virgo ♍</option>
+                        <option value="libra">Libra ♎</option>
+                        <option value="scorpio">Scorpio ♏</option>
+                        <option value="sagittarius">Sagittarius ♐</option>
+                    </select></div>
+            </div><button class="check-stars-btn" onclick="checkCosmicMatch()">Consult the Stars
+                ✨</button>
+            <p id="cosmicMsg" style="margin-top: 15px; color: #ff6b6b; min-height: 24px;"></p>
+        </div>
+        <div class="cosmic-content proposal-hidden" id="proposalStep">
+            <h2 style="font-family: 'Cinzel'; font-size: 1.5rem; color: #dcd0ff;">Earth meets Air...
+            </h2>
+            <p style="font-family: 'Merriweather'; font-size: 1.1rem; margin-top: 10px;">A connection
+                written in the stars.</p><canvas id="constellationCanvas" width="400" height="200"
+                style="width:100%; height:auto; display:none;"></canvas>
+            <div class="big-question">Will you be my Valentine?</div>
+            <div class="response-buttons">
+                <!-- Wrapper for No button to constrain movement area if needed, or just body -->
+                <button class="btn-yes" onclick="sheSaidYes()">YES ! ❤️</button>
+                <div style="position: relative; width: 100px; height: 50px; display: inline-block;">
+                    <button id="noBtn" class="btn-no" onmouseover="runAway()" onclick="runAway()">No</button>
+                </div>
+            </div>
+            <div id="loveNotes" class="love-stars" style="display:none; opacity:0; transition: opacity 1s;">
+                <div class="love-star">★<span class="note">Your Ambition inspires me</span></div>
+                <div class="love-star">★<span class="note">You are my Rock</span></div>
+                <div class="love-star">★<span class="note">Your Loyalty is rare</span></div>
+                <div class="love-star">★<span class="note">Your Smile heals me</span></div>
+                <div class="love-star">★<span class="note">Forever & Always</span></div>
+            </div>
+        </div>
+    </div>
+    <!-- Audio Element --><audio id="loveSong" src="Images/Ki_Je_Palu_Tumak.mp4" preload="auto"
+        onerror="this.onerror=null; this.src='https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'; alert('Could not load Images/Ki_Je_Palu_Tumak.mp4. Playing fallback.');"></audio>
+    <!-- POLDERHOLDER SONG -->
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script> // Init AOS
+
+        AOS.init({
+            duration: 1500, once: true
+        });
+
+        // Init Particles
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        const particleCount = 30; // Reduced from 50 for better performance
+
+        // Time-Aware Theme
+        const currentHour = new Date().getHours();
+        const isNightMode = currentHour >= 19 || currentHour < 6;
+        const particleBaseColor = isNightMode ? '173, 216, 230' : '212, 175, 55'; // Blue vs Gold
+
+        /* --- 3D Infinite Hallway Logic --- */
+        // Wait for DOM to be fully ready
+        setTimeout(() => {
+            const worldContainer = document.querySelector('.world-container');
+            const sections = Array.from(document.querySelectorAll('section, .footer'));
+
+            if (!worldContainer) {
+                console.error("World Container not found!");
+                return;
+            }
+
+            let currentScroll = 0;
+            let targetScroll = 0;
+
+            // ⚡ MAJOR OPTIMIZATION: Cache section Z positions (calculated ONCE, not 60x per second!)
+            const sectionData = sections.map(section => {
+                const style = window.getComputedStyle(section);
+                let sectionZ = 0;
+
+                try {
+                    const matrix = new DOMMatrix(style.transform);
+                    sectionZ = matrix.m43;
+                } catch (e) {
+                    const transformValue = style.transform;
+                    if (transformValue && transformValue !== 'none') {
+                        const match = transformValue.match(/translateZ\(([^)]+)\)/);
+                        if (match) {
+                            sectionZ = parseFloat(match[1]);
+                        }
+                    }
+                }
+                return { element: section, zPosition: sectionZ };
             });
 
-            // Init Particles
-            const canvas = document.getElementById('particleCanvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            let particles = [];
-            const particleCount = 30; // Reduced from 50 for better performance
+            // Custom Scroll Handling (⚡ Passive for better performance)
+            window.addEventListener('scroll', () => {
+                targetScroll = window.scrollY;
+            }, { passive: true });
 
-            // Time-Aware Theme
-            const currentHour = new Date().getHours();
-            const isNightMode = currentHour >= 19 || currentHour < 6;
-            const particleBaseColor = isNightMode ? '173, 216, 230' : '212, 175, 55'; // Blue vs Gold
+            // Extend body height to allow scrolling manually
+            // Total depth (8000px) / (arbitrary divisor for speed) + viewport
+            document.body.style.height = '12000px';
+            document.body.style.overflowY = 'scroll'; // Force scrollbar
 
-            /* --- 3D Infinite Hallway Logic --- */
-            // Wait for DOM to be fully ready
-            setTimeout(() => {
-                const worldContainer = document.querySelector('.world-container');
-                const sections = Array.from(document.querySelectorAll('section, .footer'));
+            function animateWorld() {
+                // Smooth Scroll (Lerp)
+                currentScroll += (targetScroll - currentScroll) * 0.05;
 
-                if (!worldContainer) {
-                    console.error("World Container not found!");
-                    return;
-                }
+                // Move World: We move the container TOWARDS the camera (positive Z) as we scroll down
+                worldContainer.style.transform = `translateZ(${currentScroll}px)`;
 
-                let currentScroll = 0;
-                let targetScroll = 0;
-
-                // ⚡ MAJOR OPTIMIZATION: Cache section Z positions (calculated ONCE, not 60x per second!)
-                const sectionData = sections.map(section => {
+                // Depth of Field & Fade Logic
+                sections.forEach(section => {
+                    // Get computed Z of the section (static value we set in CSS)
                     const style = window.getComputedStyle(section);
                     let sectionZ = 0;
 
                     try {
+                        // Use DOMMatrix for cross-browser compatibility (instead of WebKitCSSMatrix)
                         const matrix = new DOMMatrix(style.transform);
-                        sectionZ = matrix.m43;
+                        sectionZ = matrix.m43; // Z component
                     } catch (e) {
+                        // Fallback: Parse transform manually for older browsers
                         const transformValue = style.transform;
                         if (transformValue && transformValue !== 'none') {
                             const match = transformValue.match(/translateZ\(([^)]+)\)/);
@@ -1696,470 +1693,430 @@
                             }
                         }
                     }
-                    return { element: section, zPosition: sectionZ };
+
+                    // Calculate distance from "Camera" (Camera is at Z=0 + currentScroll)
+                    // actually Camera is at 0, World moves.
+                    // Distance = SectionZ + currentScroll
+                    const distance = sectionZ + currentScroll;
+
+                    // Logic:
+                    // If distance is near 0: Focused, Opacity 1
+                    // If distance is > 1000 (Behind camera): Fade out
+                    // If distance is < -2000 (Far away): Fade/Blur
+
+                    let opacity = 1;
+
+                    if (distance > 500) {
+                        // Passed the camera
+                        opacity = 0;
+                    } else if (distance < -3000) {
+                        // Far away
+                        opacity = 0;
+                    } else if (distance < -1500) {
+                        // Approaching
+                        opacity = (distance + 3000) / 1500; // 0 to 1
+                    }
+
+                    section.style.opacity = opacity;
+                    // ⚡ REMOVED BLUR FILTER - too expensive for GPU, causes major lag
+
+                    // Prevent interaction with hidden/far elements
+                    section.style.pointerEvents = (opacity > 0.5 && distance < 200) ? 'auto' : 'none';
                 });
 
-                // Custom Scroll Handling (⚡ Passive for better performance)
-                window.addEventListener('scroll', () => {
-                    targetScroll = window.scrollY;
-                }, { passive: true });
-
-                // Extend body height to allow scrolling manually
-                // Total depth (8000px) / (arbitrary divisor for speed) + viewport
-                document.body.style.height = '12000px';
-                document.body.style.overflowY = 'scroll'; // Force scrollbar
-
-                function animateWorld() {
-                    // Smooth Scroll (Lerp)
-                    currentScroll += (targetScroll - currentScroll) * 0.05;
-
-                    // Move World: We move the container TOWARDS the camera (positive Z) as we scroll down
-                    worldContainer.style.transform = `translateZ(${currentScroll}px)`;
-
-                    // Depth of Field & Fade Logic
-                    sections.forEach(section => {
-                        // Get computed Z of the section (static value we set in CSS)
-                        const style = window.getComputedStyle(section);
-                        let sectionZ = 0;
-
-                        try {
-                            // Use DOMMatrix for cross-browser compatibility (instead of WebKitCSSMatrix)
-                            const matrix = new DOMMatrix(style.transform);
-                            sectionZ = matrix.m43; // Z component
-                        } catch (e) {
-                            // Fallback: Parse transform manually for older browsers
-                            const transformValue = style.transform;
-                            if (transformValue && transformValue !== 'none') {
-                                const match = transformValue.match(/translateZ\(([^)]+)\)/);
-                                if (match) {
-                                    sectionZ = parseFloat(match[1]);
-                                }
-                            }
-                        }
-
-                        // Calculate distance from "Camera" (Camera is at Z=0 + currentScroll)
-                        // actually Camera is at 0, World moves.
-                        // Distance = SectionZ + currentScroll
-                        const distance = sectionZ + currentScroll;
-
-                        // Logic:
-                        // If distance is near 0: Focused, Opacity 1
-                        // If distance is > 1000 (Behind camera): Fade out
-                        // If distance is < -2000 (Far away): Fade/Blur
-
-                        let opacity = 1;
-
-                        if (distance > 500) {
-                            // Passed the camera
-                            opacity = 0;
-                        } else if (distance < -3000) {
-                            // Far away
-                            opacity = 0;
-                        } else if (distance < -1500) {
-                            // Approaching
-                            opacity = (distance + 3000) / 1500; // 0 to 1
-                        }
-
-                        section.style.opacity = opacity;
-                        // ⚡ REMOVED BLUR FILTER - too expensive for GPU, causes major lag
-
-                        // Prevent interaction with hidden/far elements
-                        section.style.pointerEvents = (opacity > 0.5 && distance < 200) ? 'auto' : 'none';
-                    });
-
-                    requestAnimationFrame(animateWorld);
-                }
-
-                animateWorld();
-            }, 100); // Small delay to ensure rendering
-
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2 + 0.5;
-                    this.speedX = Math.random() * 1 - 0.5;
-                    this.speedY = Math.random() * 1 - 0.5;
-                    this.opacity = Math.random() * 0.5 + 0.2;
-                }
-
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-                }
-
-                draw() {
-                    ctx.fillStyle = `rgba(${particleBaseColor}, ${this.opacity})`;
-                    /* Gold dust */
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-
-                }
+                requestAnimationFrame(animateWorld);
             }
 
-            function initParticles() {
-                for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+            animateWorld();
+        }, 100); // Small delay to ensure rendering
+
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
             }
 
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-                }
-
-                requestAnimationFrame(animateParticles);
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
             }
 
-            initParticles();
-            animateParticles();
+            draw() {
+                ctx.fillStyle = `rgba(${particleBaseColor}, ${this.opacity})`;
+                /* Gold dust */
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
 
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles = []; initParticles();
-            });
+            }
+        }
 
-            // Logic
-            const footerBtn = document.getElementById('footerBtn');
-            const passwordModal = document.getElementById('passwordModal');
-            const mapOverlay = document.getElementById('mapOverlay');
-            const birthdayPopup = document.getElementById('birthdayPopup');
-            const passwordInput = document.getElementById('passwordInput');
-            const clueModal = document.getElementById('clueModal');
-            const clueTitle = document.getElementById('clueTitle');
-            const clueText = document.getElementById('clueText');
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+        }
 
-            footerBtn.addEventListener('click', () => {
-                passwordModal.style.display = 'flex';
-            });
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            function checkPassword() {
-                const val = passwordInput.value.trim().toLowerCase();
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
 
-                if (val === 'dosa date') {
-                    passwordModal.style.display = 'none';
+            requestAnimationFrame(animateParticles);
+        }
 
-                    confetti({
-                        particleCount: 150, spread: 70, origin: {
-                            y: 0.8
-                        }
+        initParticles();
+        animateParticles();
 
-                        , colors: ['#9DC183', '#E6E6FA', '#ff6b6b']
-                    });
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles = []; initParticles();
+        });
 
-                    setTimeout(() => {
-                        birthdayPopup.style.display = 'flex';
+        // Logic
+        const footerBtn = document.getElementById('footerBtn');
+        const passwordModal = document.getElementById('passwordModal');
+        const mapOverlay = document.getElementById('mapOverlay');
+        const birthdayPopup = document.getElementById('birthdayPopup');
+        const passwordInput = document.getElementById('passwordInput');
+        const clueModal = document.getElementById('clueModal');
+        const clueTitle = document.getElementById('clueTitle');
+        const clueText = document.getElementById('clueText');
+
+        footerBtn.addEventListener('click', () => {
+            passwordModal.style.display = 'flex';
+        });
+
+        function checkPassword() {
+            const val = passwordInput.value.trim().toLowerCase();
+
+            if (val === 'dosa date') {
+                passwordModal.style.display = 'none';
+
+                confetti({
+                    particleCount: 150, spread: 70, origin: {
+                        y: 0.8
                     }
 
-                        , 500);
-                }
+                    , colors: ['#9DC183', '#E6E6FA', '#ff6b6b']
+                });
 
-                else {
-                    const content = document.querySelector('.modal-content');
-                    content.classList.add('shake');
-                    setTimeout(() => content.classList.remove('shake'), 500);
-                    alert("Try again, Muggle!");
-                }
-            }
-
-            function openMap() {
-                birthdayPopup.style.display = 'none';
-                mapOverlay.style.display = 'flex';
-            }
-
-            function closeMap() {
-                mapOverlay.style.display = 'none';
-            }
-
-            /* Clues updated with Cake, Cookies, Vanity Box */
-            const clues = {
-                1: {
-                    title: "Sugary Secrets & Style",
-                    text: "Something baked with love and care, <br> A vanity box for the fairest fair. <br> Cake and Cookies to make the start sweet, <br> <strong>Find them all for your first treat!</strong> 🍪🎂💄"
-                }
-
-                ,
-                2: {
-                    title: "Lumos!",
-                    text: "When the sun goes down... <br> Check the passenger sun-visor for a light! 💡"
-                }
-
-                ,
-                3: {
-                    title: "Mischief Managed",
-                    text: "Losing your page makes you surly... <br> Look in the glove compartment! ⚡"
-                }
-
-                ,
-                4: {
-                    title: "Herbology Class",
-                    text: "It's not quite a rose... <br> Check the backseat for a bloom! 🌻"
-                }
-            }
-
-                ;
-
-            function showClue(id) {
-                clueTitle.innerText = clues[id].title;
-                clueText.innerHTML = clues[id].text;
-                clueModal.style.display = 'block';
-            }
-
-            function closeClue() {
-                clueModal.style.display = 'none';
-            }
-
-            /* --- Cosmic Valentine Logic --- */
-            const cosmicModal = document.getElementById('cosmicModal');
-            const zodiacStep = document.getElementById('zodiacStep');
-            const proposalStep = document.getElementById('proposalStep');
-            const cosmicMsg = document.getElementById('cosmicMsg');
-            const noBtn = document.getElementById('noBtn');
-            const constellationCanvas = document.getElementById('constellationCanvas');
-            const loveSong = document.getElementById('loveSong');
-
-            function openCosmicModal() {
-                cosmicModal.style.display = 'flex';
-                zodiacStep.style.display = 'block';
-                proposalStep.style.display = 'none';
-                cosmicMsg.innerText = '';
-            }
-
-            function closeCosmicModal() {
-                cosmicModal.style.display = 'none';
-                loveSong.pause();
-                loveSong.currentTime = 0;
-            }
-
-            function checkCosmicMatch() {
-                const her = document.getElementById('herSign').value;
-                const his = document.getElementById('hisSign').value;
-
-                if (her === 'capricorn' && his === 'gemini') {
-                    // Match!
-                    zodiacStep.style.display = 'none';
-                    proposalStep.style.display = 'block';
-                    proposalStep.classList.remove('proposal-hidden'); // triggers animation
-                    drawConstellation();
-                } else if (her && his) {
-                    cosmicMsg.innerText = "The stars are confused... Try her true sign (♑) and yours (♊)!";
-                } else {
-                    cosmicMsg.innerText = "Please select both signs to consult the stars.";
-                }
-            }
-
-            function runAway() {
-                const x = Math.random() * (window.innerWidth - 100);
-                const y = Math.random() * (window.innerHeight - 50);
-                noBtn.style.position = 'fixed';
-                noBtn.style.left = x + 'px';
-                noBtn.style.top = y + 'px';
-            }
-
-            function sheSaidYes() {
-                // 1. Confetti
-                var duration = 5 * 1000;
-                var animationEnd = Date.now() + duration;
-                var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 3001 };
-
-                var random = function (min, max) { return Math.random() * (max - min) + min; }
-
-                var interval = setInterval(function () {
-                    var timeLeft = animationEnd - Date.now();
-
-                    if (timeLeft <= 0) {
-                        return clearInterval(interval);
-                    }
-
-                    var particleCount = 50 * (timeLeft / duration);
-
-                    // since particles fall down, start a bit higher than random
-                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } }));
-                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
-                }, 250);
-
-                // 2. Music
-                loveSong.play().catch(e => console.log("Audio play failed (user interaction needed likely):", e));
-
-                // 3. Show Love Notes
-                document.getElementById('loveNotes').style.display = 'flex';
                 setTimeout(() => {
-                    document.getElementById('loveNotes').style.opacity = '1';
-                }, 100);
+                    birthdayPopup.style.display = 'flex';
+                }
 
-                // 4. Change Title
-                document.querySelector('.big-question').innerHTML = "I Knew It! ❤️<br><span style='font-size:1.8rem'>Distance implies so little,<br>when you mean so much.</span>";
-                document.querySelector('.response-buttons').style.display = 'none';
+                    , 500);
             }
 
-            function drawConstellation() {
-                const ctx = constellationCanvas.getContext('2d');
-                const w = constellationCanvas.width = constellationCanvas.parentElement.offsetWidth;
-                const h = constellationCanvas.height = 200;
-                constellationCanvas.style.display = 'block';
+            else {
+                const content = document.querySelector('.modal-content');
+                content.classList.add('shake');
+                setTimeout(() => content.classList.remove('shake'), 500);
+                alert("Try again, Muggle!");
+            }
+        }
 
-                ctx.clearRect(0, 0, w, h);
-                ctx.strokeStyle = 'white';
-                ctx.fillStyle = 'white';
-                ctx.lineWidth = 1;
+        function openMap() {
+            birthdayPopup.style.display = 'none';
+            mapOverlay.style.display = 'flex';
+        }
 
-                // Simple "Gemini" (Left) and "Capricorn" (Right) abstract connecting
-                // Points for Gemini (Castor & Pollux theme)
-                const geminiPoints = [{ x: 50, y: 50 }, { x: 80, y: 60 }, { x: 60, y: 100 }, { x: 90, y: 110 }];
-                // Points for Capricorn (Sea Goat theme - V shapeish)
-                const capriPoints = [{ x: 300, y: 50 }, { x: 350, y: 40 }, { x: 320, y: 100 }, { x: 360, y: 120 }, { x: 320, y: 150 }];
+        function closeMap() {
+            mapOverlay.style.display = 'none';
+        }
 
-                // Adjust points based on width
-                const offsetX = (w - 400) / 2;
-                if (offsetX > 0) {
-                    geminiPoints.forEach(p => p.x += offsetX);
-                    capriPoints.forEach(p => p.x += offsetX);
-                }
-
-                function drawStars(points) {
-                    ctx.beginPath();
-                    points.forEach((p, i) => {
-                        ctx.moveTo(p.x, p.y);
-                        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-                        if (i < points.length - 1) {
-                            ctx.lineTo(points[i + 1].x, points[i + 1].y);
-                        }
-                    });
-                    ctx.stroke();
-                    ctx.fill();
-                }
-
-                drawStars(geminiPoints);
-                drawStars(capriPoints);
-
-                // Connection Line (Animated)
-                let progress = 0;
-                function animateConnection() {
-                    if (progress > 1) return;
-                    const start = geminiPoints[geminiPoints.length - 1];
-                    const end = capriPoints[2]; // Connect to middle of Capricorn
-
-                    const curX = start.x + (end.x - start.x) * progress;
-                    const curY = start.y + (end.y - start.y) * progress;
-
-                    ctx.beginPath();
-                    ctx.moveTo(start.x, start.y);
-                    ctx.lineTo(curX, curY);
-                    ctx.strokeStyle = `rgba(255, 107, 107, ${progress})`; // Fade in red string
-                    ctx.lineWidth = 2;
-                    ctx.stroke();
-
-                    progress += 0.01;
-                    requestAnimationFrame(animateConnection);
-                }
-
-
-                animateConnection();
+        /* Clues updated with Cake, Cookies, Vanity Box */
+        const clues = {
+            1: {
+                title: "Sugary Secrets & Style",
+                text: "Something baked with love and care, <br> A vanity box for the fairest fair. <br> Cake and Cookies to make the start sweet, <br> <strong>Find them all for your first treat!</strong> 🍪🎂💄"
             }
 
-            /* --- Long Distance Extensions --- */
-
-            // 1. Countdown Timer
-            const countdownDate = new Date("February 14, 2027 00:00:00").getTime(); // Placeholder date
-
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const distance = countdownDate - now;
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-                document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-                document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-                document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-
-                if (distance < 0) {
-                    document.getElementById("countdown").innerHTML = "HAPPY REUNION! ❤️";
-                }
+            ,
+            2: {
+                title: "Lumos!",
+                text: "When the sun goes down... <br> Check the passenger sun-visor for a light! 💡"
             }
-            setInterval(updateCountdown, 1000);
+
+            ,
+            3: {
+                title: "Mischief Managed",
+                text: "Losing your page makes you surly... <br> Look in the glove compartment! ⚡"
+            }
+
+            ,
+            4: {
+                title: "Herbology Class",
+                text: "It's not quite a rose... <br> Check the backseat for a bloom! 🌻"
+            }
+        }
+
+            ;
+
+        function showClue(id) {
+            clueTitle.innerText = clues[id].title;
+            clueText.innerHTML = clues[id].text;
+            clueModal.style.display = 'block';
+        }
+
+        function closeClue() {
+            clueModal.style.display = 'none';
+        }
+
+        /* --- Cosmic Valentine Logic --- */
+        const cosmicModal = document.getElementById('cosmicModal');
+        const zodiacStep = document.getElementById('zodiacStep');
+        const proposalStep = document.getElementById('proposalStep');
+        const cosmicMsg = document.getElementById('cosmicMsg');
+        const noBtn = document.getElementById('noBtn');
+        const constellationCanvas = document.getElementById('constellationCanvas');
+        const loveSong = document.getElementById('loveSong');
+
+        function openCosmicModal() {
+            cosmicModal.style.display = 'flex';
+            zodiacStep.style.display = 'block';
+            proposalStep.style.display = 'none';
+            cosmicMsg.innerText = '';
+        }
+
+        function closeCosmicModal() {
+            cosmicModal.style.display = 'none';
+            loveSong.pause();
+            loveSong.currentTime = 0;
+        }
+
+        function checkCosmicMatch() {
+            const her = document.getElementById('herSign').value;
+            const his = document.getElementById('hisSign').value;
+
+            if (her === 'capricorn' && his === 'gemini') {
+                // Match!
+                zodiacStep.style.display = 'none';
+                proposalStep.style.display = 'block';
+                proposalStep.classList.remove('proposal-hidden'); // triggers animation
+                drawConstellation();
+            } else if (her && his) {
+                cosmicMsg.innerText = "The stars are confused... Try her true sign (♑) and yours (♊)!";
+            } else {
+                cosmicMsg.innerText = "Please select both signs to consult the stars.";
+            }
+        }
+
+        function runAway() {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function sheSaidYes() {
+            // 1. Confetti
+            var duration = 5 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 3001 };
+
+            var random = function (min, max) { return Math.random() * (max - min) + min; }
+
+            var interval = setInterval(function () {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+
+                // since particles fall down, start a bit higher than random
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+
+            // 2. Music
+            loveSong.play().catch(e => console.log("Audio play failed (user interaction needed likely):", e));
+
+            // 3. Show Love Notes
+            document.getElementById('loveNotes').style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('loveNotes').style.opacity = '1';
+            }, 100);
+
+            // 4. Change Title
+            document.querySelector('.big-question').innerHTML = "I Knew It! ❤️<br><span style='font-size:1.8rem'>Distance implies so little,<br>when you mean so much.</span>";
+            document.querySelector('.response-buttons').style.display = 'none';
+        }
+
+        function drawConstellation() {
+            const ctx = constellationCanvas.getContext('2d');
+            const w = constellationCanvas.width = constellationCanvas.parentElement.offsetWidth;
+            const h = constellationCanvas.height = 200;
+            constellationCanvas.style.display = 'block';
+
+            ctx.clearRect(0, 0, w, h);
+            ctx.strokeStyle = 'white';
+            ctx.fillStyle = 'white';
+            ctx.lineWidth = 1;
+
+            // Simple "Gemini" (Left) and "Capricorn" (Right) abstract connecting
+            // Points for Gemini (Castor & Pollux theme)
+            const geminiPoints = [{ x: 50, y: 50 }, { x: 80, y: 60 }, { x: 60, y: 100 }, { x: 90, y: 110 }];
+            // Points for Capricorn (Sea Goat theme - V shapeish)
+            const capriPoints = [{ x: 300, y: 50 }, { x: 350, y: 40 }, { x: 320, y: 100 }, { x: 360, y: 120 }, { x: 320, y: 150 }];
+
+            // Adjust points based on width
+            const offsetX = (w - 400) / 2;
+            if (offsetX > 0) {
+                geminiPoints.forEach(p => p.x += offsetX);
+                capriPoints.forEach(p => p.x += offsetX);
+            }
+
+            function drawStars(points) {
+                ctx.beginPath();
+                points.forEach((p, i) => {
+                    ctx.moveTo(p.x, p.y);
+                    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+                    if (i < points.length - 1) {
+                        ctx.lineTo(points[i + 1].x, points[i + 1].y);
+                    }
+                });
+                ctx.stroke();
+                ctx.fill();
+            }
+
+            drawStars(geminiPoints);
+            drawStars(capriPoints);
+
+            // Connection Line (Animated)
+            let progress = 0;
+            function animateConnection() {
+                if (progress > 1) return;
+                const start = geminiPoints[geminiPoints.length - 1];
+                const end = capriPoints[2]; // Connect to middle of Capricorn
+
+                const curX = start.x + (end.x - start.x) * progress;
+                const curY = start.y + (end.y - start.y) * progress;
+
+                ctx.beginPath();
+                ctx.moveTo(start.x, start.y);
+                ctx.lineTo(curX, curY);
+                ctx.strokeStyle = `rgba(255, 107, 107, ${progress})`; // Fade in red string
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                progress += 0.01;
+                requestAnimationFrame(animateConnection);
+            }
 
 
-            // 1. Haptic Heartbeat (Enhanced)
-            const scanner = document.querySelector('.fingerprint-scanner');
-            let heartbeatInterval;
+            animateConnection();
+        }
 
-            function startHeartbeat() {
-                scanner.style.transform = "scale(0.95)";
-                // Heartbeat pattern: thud-thud ... thud-thud
-                if (navigator.vibrate) {
-                    // Initial thud
+        /* --- Long Distance Extensions --- */
+
+        // 1. Countdown Timer
+        const countdownDate = new Date("February 14, 2027 00:00:00").getTime(); // Placeholder date
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "HAPPY REUNION! ❤️";
+            }
+        }
+        setInterval(updateCountdown, 1000);
+
+
+        // 1. Haptic Heartbeat (Enhanced)
+        const scanner = document.querySelector('.fingerprint-scanner');
+        let heartbeatInterval;
+
+        function startHeartbeat() {
+            scanner.style.transform = "scale(0.95)";
+            // Heartbeat pattern: thud-thud ... thud-thud
+            if (navigator.vibrate) {
+                // Initial thud
+                navigator.vibrate([100, 100, 100]);
+                heartbeatInterval = setInterval(() => {
                     navigator.vibrate([100, 100, 100]);
-                    heartbeatInterval = setInterval(() => {
-                        navigator.vibrate([100, 100, 100]);
-                    }, 1500); // Repeat every 1.5s
+                }, 1500); // Repeat every 1.5s
+            }
+
+            // Visual Pulse
+            scanner.innerHTML = '<i class="fas fa-heart" style="color: #ff6b6b; animation: pulseHeart 0.5s infinite;"></i>';
+
+            checkTouchDuration();
+        }
+
+        function stopHeartbeat() {
+            clearInterval(heartbeatInterval);
+            scanner.style.transform = "scale(1)";
+            navigator.vibrate(0); // Stop
+            // Reset icon
+            setTimeout(() => {
+                if (!scanner.innerHTML.includes('fa-fingerprint')) {
+                    scanner.innerHTML = '<i class="fas fa-fingerprint"></i><div class="scanner-line"></div><div class="heart-pulse"><i class="fas fa-heart"></i></div>';
                 }
+            }, 3000);
+        }
 
-                // Visual Pulse
-                scanner.innerHTML = '<i class="fas fa-heart" style="color: #ff6b6b; animation: pulseHeart 0.5s infinite;"></i>';
+        let touchTimer;
+        function checkTouchDuration() {
+            touchTimer = setTimeout(() => {
+                alert("I can feel you too... ❤️");
+            }, 2000);
+        }
 
-                checkTouchDuration();
+        // Attach events (supporting both touch and mouse)
+        if (scanner) {
+            scanner.addEventListener('mousedown', startHeartbeat);
+            scanner.addEventListener('touchstart', (e) => { e.preventDefault(); startHeartbeat(); });
+            scanner.addEventListener('mouseup', () => { clearTimeout(touchTimer); stopHeartbeat(); });
+            scanner.addEventListener('touchend', () => { clearTimeout(touchTimer); stopHeartbeat(); });
+        }
+
+
+        // 2. Lumos / Nox Secret
+        let keySequence = [];
+        const lumosCode = "lumos";
+        const noxCode = "nox";
+
+        window.addEventListener('keydown', (e) => {
+            keySequence.push(e.key.toLowerCase());
+            if (keySequence.length > 5) keySequence.shift();
+
+            const currentSeq = keySequence.join('');
+
+            if (currentSeq.includes(lumosCode)) {
+                document.body.classList.add('lumos-mode');
+                // Play glimmer sound if available
             }
 
-            function stopHeartbeat() {
-                clearInterval(heartbeatInterval);
-                scanner.style.transform = "scale(1)";
-                navigator.vibrate(0); // Stop
-                // Reset icon
-                setTimeout(() => {
-                    if (!scanner.innerHTML.includes('fa-fingerprint')) {
-                        scanner.innerHTML = '<i class="fas fa-fingerprint"></i><div class="scanner-line"></div><div class="heart-pulse"><i class="fas fa-heart"></i></div>';
-                    }
-                }, 3000);
+            if (currentSeq.includes(noxCode)) {
+                document.body.classList.remove('lumos-mode');
             }
+        });
 
-            let touchTimer;
-            function checkTouchDuration() {
-                touchTimer = setTimeout(() => {
-                    alert("I can feel you too... ❤️");
-                }, 2000);
-            }
-
-            // Attach events (supporting both touch and mouse)
-            if (scanner) {
-                scanner.addEventListener('mousedown', startHeartbeat);
-                scanner.addEventListener('touchstart', (e) => { e.preventDefault(); startHeartbeat(); });
-                scanner.addEventListener('mouseup', () => { clearTimeout(touchTimer); stopHeartbeat(); });
-                scanner.addEventListener('touchend', () => { clearTimeout(touchTimer); stopHeartbeat(); });
-            }
-
-
-            // 2. Lumos / Nox Secret
-            let keySequence = [];
-            const lumosCode = "lumos";
-            const noxCode = "nox";
-
-            window.addEventListener('keydown', (e) => {
-                keySequence.push(e.key.toLowerCase());
-                if (keySequence.length > 5) keySequence.shift();
-
-                const currentSeq = keySequence.join('');
-
-                if (currentSeq.includes(lumosCode)) {
-                    document.body.classList.add('lumos-mode');
-                    // Play glimmer sound if available
-                }
-
-                if (currentSeq.includes(noxCode)) {
-                    document.body.classList.remove('lumos-mode');
-                }
-            });
-
-            // 3. Dosa Date Receipt Overlay
-            function showReceiptOverlay() {
-                const receiptHTML = `
+        // 3. Dosa Date Receipt Overlay
+        function showReceiptOverlay() {
+            const receiptHTML = `
                     <div id="receiptOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000; display:flex; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
                         <div style="background:white; padding:40px; border-radius:10px; font-family:'Courier New', monospace; box-shadow:0 0 20px rgba(255,255,255,0.2); transform:rotate(-2deg); width:300px; text-align:center;">
                             <h3>THE LIBRARY OF US</h3>
@@ -2182,64 +2139,64 @@
                         </div>
                     </div>
                 `;
-                const div = document.createElement('div');
-                div.innerHTML = receiptHTML;
-                document.body.appendChild(div);
+            const div = document.createElement('div');
+            div.innerHTML = receiptHTML;
+            document.body.appendChild(div);
 
-                setTimeout(() => {
-                    div.remove();
-                    // Trigger Confetti after receipt
-                    confetti({
-                        particleCount: 150, spread: 70, origin: { y: 0.8 }, colors: ['#9DC183', '#E6E6FA', '#ff6b6b']
-                    });
-                    setTimeout(() => { document.getElementById('birthdayPopup').style.display = 'flex'; }, 500);
-                }, 3000);
-            }
-
-            // 3. Open When Letters
-            const letters = {
-                'miss': {
-                    title: "Open When You Miss Me",
-                    body: "Close your eyes. Take a deep breath. <br><br> I am right there with you. In the wind that brushes your cheek, in the warmth of the sun, and in the beat of your own heart. <br><br> Distance is just a test to see how far love can travel. And ours? It's traveling at light speed. I love you more than miles can measure."
-                },
-                'sad': {
-                    title: "Open When You're Sad",
-                    body: "I hate that I can't be there to hug you right now. But imagine my arms wrapped tight around you. <br><br> You are stronger than whatever is making you sad. You have survived 100% of your bad days. <br><br> Call me. I'm here. Always."
-                },
-                'happy': {
-                    title: "Open When You're Happy",
-                    body: "YAY! Look at that beautiful smile! <br><br> I wish I could capture this moment. Seeing you happy is my favorite thing in the world. <br><br> Celebration is pending when we meet! For now, do a little dance for me! 💃"
-                }
-            };
-
-            const letterModal = document.getElementById('letterModal');
-            const letterTitle = document.getElementById('letterTitle');
-            const letterBody = document.getElementById('letterBody');
-
-            function openLetter(type) {
-                letterTitle.innerText = letters[type].title;
-                letterBody.innerHTML = letters[type].body;
-                letterModal.style.display = 'flex';
-            }
-
-            function closeLetter() {
-                letterModal.style.display = 'none';
-            }
-
-            // 4. Audio Ambience (Hover Sound)
-            // Using a subtle placeholder sound or generated tone could be complex, 
-            // so we'll try a standard silent-fail approach with a free sound resource.
-            const hoverSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-paper-slide-1530.mp3');
-            hoverSound.volume = 0.1;
-
-            document.querySelectorAll('.polaroid').forEach(p => {
-                p.addEventListener('mouseenter', () => {
-                    hoverSound.currentTime = 0;
-                    hoverSound.play().catch(e => { /* Ignore auto-play strictness */ });
+            setTimeout(() => {
+                div.remove();
+                // Trigger Confetti after receipt
+                confetti({
+                    particleCount: 150, spread: 70, origin: { y: 0.8 }, colors: ['#9DC183', '#E6E6FA', '#ff6b6b']
                 });
-            });
+                setTimeout(() => { document.getElementById('birthdayPopup').style.display = 'flex'; }, 500);
+            }, 3000);
+        }
 
-        </script>
+        // 3. Open When Letters
+        const letters = {
+            'miss': {
+                title: "Open When You Miss Me",
+                body: "Close your eyes. Take a deep breath. <br><br> I am right there with you. In the wind that brushes your cheek, in the warmth of the sun, and in the beat of your own heart. <br><br> Distance is just a test to see how far love can travel. And ours? It's traveling at light speed. I love you more than miles can measure."
+            },
+            'sad': {
+                title: "Open When You're Sad",
+                body: "I hate that I can't be there to hug you right now. But imagine my arms wrapped tight around you. <br><br> You are stronger than whatever is making you sad. You have survived 100% of your bad days. <br><br> Call me. I'm here. Always."
+            },
+            'happy': {
+                title: "Open When You're Happy",
+                body: "YAY! Look at that beautiful smile! <br><br> I wish I could capture this moment. Seeing you happy is my favorite thing in the world. <br><br> Celebration is pending when we meet! For now, do a little dance for me! 💃"
+            }
+        };
+
+        const letterModal = document.getElementById('letterModal');
+        const letterTitle = document.getElementById('letterTitle');
+        const letterBody = document.getElementById('letterBody');
+
+        function openLetter(type) {
+            letterTitle.innerText = letters[type].title;
+            letterBody.innerHTML = letters[type].body;
+            letterModal.style.display = 'flex';
+        }
+
+        function closeLetter() {
+            letterModal.style.display = 'none';
+        }
+
+        // 4. Audio Ambience (Hover Sound)
+        // Using a subtle placeholder sound or generated tone could be complex, 
+        // so we'll try a standard silent-fail approach with a free sound resource.
+        const hoverSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-paper-slide-1530.mp3');
+        hoverSound.volume = 0.1;
+
+        document.querySelectorAll('.polaroid').forEach(p => {
+            p.addEventListener('mouseenter', () => {
+                hoverSound.currentTime = 0;
+                hoverSound.play().catch(e => { /* Ignore auto-play strictness */ });
+            });
+        });
+
+    </script>
 </body>
 
 </html>
