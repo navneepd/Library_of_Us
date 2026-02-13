@@ -1099,9 +1099,8 @@
         }
 
         /* Infinite Hallway 3D CSS */
-        body {
-            overflow: hidden;
-            /* Hide default scroll */
+        .world-container-wrapper {
+            /* Note: body overflow is handled by 3D scroll script */
             background-color: #1a1a1a;
             perspective: 1000px;
             /* Depth perception */
@@ -1181,8 +1180,11 @@
             justify-content: flex-start;
             /* Start from top */
             padding-top: 100px;
+            padding-bottom: 100px;
             overflow: visible !important;
             /* Don't clip */
+            position: relative !important;
+            /* Ensure proper stacking */
         }
 
         /* Footer */
@@ -1698,8 +1700,22 @@
                     sections.forEach(section => {
                         // Get computed Z of the section (static value we set in CSS)
                         const style = window.getComputedStyle(section);
-                        const matrix = new WebKitCSSMatrix(style.transform);
-                        const sectionZ = matrix.m43; // Z component
+                        let sectionZ = 0;
+
+                        try {
+                            // Use DOMMatrix for cross-browser compatibility (instead of WebKitCSSMatrix)
+                            const matrix = new DOMMatrix(style.transform);
+                            sectionZ = matrix.m43; // Z component
+                        } catch (e) {
+                            // Fallback: Parse transform manually for older browsers
+                            const transformValue = style.transform;
+                            if (transformValue && transformValue !== 'none') {
+                                const match = transformValue.match(/translateZ\(([^)]+)\)/);
+                                if (match) {
+                                    sectionZ = parseFloat(match[1]);
+                                }
+                            }
+                        }
 
                         // Calculate distance from "Camera" (Camera is at Z=0 + currentScroll)
                         // actually Camera is at 0, World moves.
